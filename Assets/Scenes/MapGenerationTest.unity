@@ -133,7 +133,39 @@ PrefabInstance:
     - target: {fileID: 2963655271242147920, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
       propertyPath: playerView
       value: 
-      objectReference: {fileID: 1848151636}
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963655271242147920, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: xMouseSensitivity
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963655271242147920, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: yMouseSensitivity
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963655271242147920, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: moveSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963655271242147920, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: runAcceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963655271242147920, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: airDecceleration
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963655271242147920, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: airControl
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963655271242147920, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: runDeacceleration
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963655271242147920, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: jumpSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2963655271242147921, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
       propertyPath: m_Name
       value: Player
@@ -272,8 +304,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomPrefabs:
   - {fileID: 6651994257157628701, guid: a87bcfa4ecf5347409de4fdb3b238e24, type: 3}
-  - {fileID: 3018984909736841151, guid: f77cb2bd1f4038545a0caede5260a9aa, type: 3}
-  - {fileID: 4071819151367243567, guid: 42f824eb1221d954ba40d9e7a2bc3184, type: 3}
   NumRooms: 10
 --- !u!4 &785878135
 Transform:
@@ -289,11 +319,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1848151636 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7236935273926728140, guid: 626cdce81b366aa44a5949e9d94c7ba9, type: 3}
-  m_PrefabInstance: {fileID: 629701846}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1983652709
 GameObject:
   m_ObjectHideFlags: 0
