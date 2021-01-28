@@ -50,11 +50,11 @@ public class MapGenerator : MonoBehaviour
 
         foreach(Vector2 roomLocation in roomLocations)
         {
-            GameObject room = RoomPrefabs[(int) (Random.value * RoomPrefabs.Length)];
+            GameObject roomPrefab = RoomPrefabs[random.Next(RoomPrefabs.Length)];
+            GameObject room = Instantiate(roomPrefab);
             Vector2 realPosition = roomLocation * ROOM_SIZE;
             room.transform.position = new Vector3(realPosition.x, 0, realPosition.y);
-            room.transform.Rotate(Vector3.up * random.Next(4) * 90);
-            Instantiate(room);
+            //room.transform.RotateAround(room.GetComponent<Room>().FloorObject.GetComponent<MeshCollider>().bounds.center, Vector3.up, random.Next(4) * 90);
         }
     }
  

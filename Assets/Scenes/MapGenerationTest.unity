@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomPrefabs:
-  - {fileID: 0}
+  - {fileID: 3264043464858759853, guid: a5bd18d11f435e14ab9abeb6295d109e, type: 3}
   NumRooms: 10
 --- !u!4 &785878135
 Transform:
