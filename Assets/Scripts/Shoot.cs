@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
+    // public variables
+    public GameObject HitParticle;
 
     // private variables
     private Camera playerCamera;
@@ -21,6 +23,9 @@ public class Shoot : MonoBehaviour
         {
             RaycastHit hit;
             Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 200);
+            GameObject particleObject = Instantiate(HitParticle, hit.point, Quaternion.LookRotation(hit.normal));
+            ParticleSystem particleSystem = particleObject.GetComponent<ParticleSystem>();
+            Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
         }
     }
 }
