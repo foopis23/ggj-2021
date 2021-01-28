@@ -18,6 +18,8 @@ public class MapGenerator : MonoBehaviour
     void Start()
     {
         random = new System.Random();
+
+        GenerateMap();
     }
 
     public void GenerateMap(int numTerminals)
@@ -48,8 +50,11 @@ public class MapGenerator : MonoBehaviour
 
         foreach(Vector2 roomLocation in roomLocations)
         {
-            GameObject Room = RoomPrefabs[(int) (Random.value * RoomPrefabs.Length)];
-            Room.transform.position = roomLocation * ROOM_SIZE;
+            GameObject room = RoomPrefabs[(int) (Random.value * RoomPrefabs.Length)];
+            Vector2 realPosition = roomLocation * ROOM_SIZE;
+            room.transform.position = new Vector3(realPosition.x, 0, realPosition.y);
+            room.transform.Rotate(Vector3.up * random.Next(4) * 90);
+            Instantiate(room);
         }
     }
  
