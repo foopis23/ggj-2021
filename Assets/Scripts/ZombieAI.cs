@@ -21,8 +21,10 @@ public class ZombieAI : MonoBehaviour
     public int attackCoolDownMs;
     public int lookForLostPlayerMs;
     public int timeToSpotMS;
+    public float timeBetweenSeePlayerChecks;
 
     private Vector3 lastSeenPlayerPos;
+    private float lastPlayerSeenCheck;
 
     //state flags
     private bool isAgro;
@@ -62,9 +64,6 @@ public class ZombieAI : MonoBehaviour
         animator.SetBool("isAttacking", isAttacking);
         animator.SetBool("isAgro", isAgro);
         animator.SetBool("isAttackCoolingDown", isAttackCoolingDown);
-
-        didSeePlayer = canSeePlayer;
-        canSeePlayer = doesAISeePlayer();
 
         if (isAgro)
         {
@@ -116,6 +115,15 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        if (Time.time - lastPlayerSeenCheck > timeBetweenSeePlayerChecks)
+        {
+            didSeePlayer = canSeePlayer;
+            canSeePlayer = doesAISeePlayer();
+        }
+    }
+
     bool doesAISeePlayer()
     {
         Vector3 direction = (target.position - transform.position).normalized;
@@ -123,6 +131,8 @@ public class ZombieAI : MonoBehaviour
 
         float angle = (isAgro) ? agroViewConeAngle : viewConeAngle;
         float distance = (isAgro) ? agroViewDistance : viewDistance;
+
+        lastPlayerSeenCheck = Time.time;
 
         return Mathf.Abs(Vector3.Angle(transform.position, target.position)) <= (angle / 2) &&
             Vector3.Distance(transform.position, target.position) <= distance &&
