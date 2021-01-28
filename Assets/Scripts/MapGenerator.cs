@@ -54,7 +54,7 @@ public class MapGenerator : MonoBehaviour
             GameObject room = Instantiate(roomPrefab);
             Vector2 realPosition = roomLocation * ROOM_SIZE;
             room.transform.position = new Vector3(realPosition.x, 0, realPosition.y);
-            //room.transform.RotateAround(room.GetComponent<Room>().FloorObject.GetComponent<MeshCollider>().bounds.center, Vector3.up, random.Next(4) * 90);
+            room.transform.Rotate(Vector3.up, random.Next(4) * 90);
         }
     }
  
