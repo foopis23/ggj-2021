@@ -28,14 +28,18 @@ public class MapGenerator : MonoBehaviour
     void Start()
     {
         random = new System.Random();
-        nextLevelLocation = Vector3.zero;
         Levels = new List<Level>();
+        nextLevelLocation = Vector3.left;
 
-        GenerateMap();
+        GenerateLevel();
     }
 
-    public void GenerateMap(int numTerminals)
+    public void GenerateLevel()
     {
+        Level level = new Level();
+        Vector3 levelLocation = LEVEL_OFFSET * NextLevelLocation;
+        int numTerminals = Levels.Count == 0 ? 3 : random.Next(1, 4);
+
         Vector2[] directions = {Vector2.up, Vector2.right, Vector2.down, Vector2.left};
         List<Vector2> roomLocations = new List<Vector2>();
         List<Vector2> terminalLocations = new List<Vector2>();
@@ -65,13 +69,13 @@ public class MapGenerator : MonoBehaviour
             GameObject roomPrefab = RoomPrefabs[random.Next(RoomPrefabs.Length)];
             GameObject room = Instantiate(roomPrefab);
             Vector2 realPosition = roomLocation * ROOM_SIZE;
-            room.transform.position = new Vector3(realPosition.x, 0, realPosition.y);
-            room.transform.Rotate(Vector3.up, random.Next(4) * 90);
+            room.transform.position = levelLocation + new Vector3(realPosition.x, 0, realPosition.y);
+            level.Rooms.Add(room.GetComponent<Room>());
         }
+
+        Levels.Add(level);
     }
  
-    public void GenerateMap() => GenerateMap(3);
-
     public void UpdateNextLevelLocation()
     {
         nextLevelLocation.x++;
