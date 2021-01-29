@@ -17,6 +17,18 @@ public class PlayerHealthChangedCtx : EventContext
     }
 }
 
+public class BulletHitCtx : EventContext
+{
+    public RaycastHit hit;
+    public float damage;
+
+    public BulletHitCtx(RaycastHit hit, float damage)
+    {
+        this.hit = hit;
+        this.damage = damage;
+    }
+}
+
 public class Player : MonoBehaviour
 {
     // public variables
@@ -42,7 +54,10 @@ public class Player : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1"))
         {
-            Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 200);
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 200))
+            {
+                EventSystem.Current.FireEvent(new BulletHitCtx(hit, 10));
+            }
             GameObject particleObject = Instantiate(HitParticle, hit.point, Quaternion.LookRotation(hit.normal));
             ParticleSystem particleSystem = particleObject.GetComponent<ParticleSystem>();
             Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
