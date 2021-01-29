@@ -21,6 +21,7 @@ public class MapGenerator : MonoBehaviour
 
     // public variables
     public GameObject[] RoomPrefabs;
+    public GameObject WallPrefab;
     public GameObject TerminalPrefab;
     public int NumRooms = 10;
 
@@ -83,6 +84,15 @@ public class MapGenerator : MonoBehaviour
             GameObject roomObject = Instantiate(roomPrefab);
             Vector2 realPosition = roomLocation * ROOM_SIZE;
             roomObject.transform.position = levelLocation + new Vector3(realPosition.x, 0, realPosition.y);
+            foreach(Vector2 direction in directions)
+            {
+                if(!roomLocations.Contains(roomLocation + direction))
+                {
+                    GameObject wallObject = Instantiate(WallPrefab);
+                    wallObject.transform.position = roomObject.transform.position + new Vector3(24, 2.5f, -24) + new Vector3(direction.x, 0, direction.y) * 24;
+                }
+            }
+
             Room room = roomObject.GetComponent<Room>();
             level.Rooms.Add(room);
 

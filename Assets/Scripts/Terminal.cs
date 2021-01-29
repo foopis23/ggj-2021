@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CallbackEvents;
 
-public class Terminal : MonoBehaviour
+public class Terminal : MonoBehaviour, IInteractable
 {
     // Automatic Properties
     public Vector3 LinkedLevelLocation { get; set; }
@@ -16,12 +16,16 @@ public class Terminal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
-    public void HandleInteract()
+    public void OnInteractable()
     {
-        //TODO: cool terminal camera zoom text interface puzzle hacking minigame desu
+        //TODO: show UI prompt
+    }
+
+    public void Interact()
+    {
+        //TODO: cool terminal camera zoom text interface puzzle hacking minigame piss baby desu
 
         EventSystem.Current.FireEvent(new GenerateNextLevelContext(LinkedLevelLocation));
     }

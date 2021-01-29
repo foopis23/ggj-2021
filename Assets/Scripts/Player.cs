@@ -42,15 +42,18 @@ public class GotoNextLevelContext : EventContext
 public class Player : MonoBehaviour
 {
     // public variables
-    public LayerMask TerminalLayerMask;
+    public LayerMask InteractionLayerMask;
     public GameObject HitParticle;
+    public int InteractionDistance = 2;
     public float maxHealth;
-
-    public CharacterController characterController;
 
     // private variables
     private Camera playerCamera;
     private float health;
+
+    // automatic properties
+    public CharacterController CharacterController { get; set; }
+    public CPMPlayer CPMPlayer { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +62,7 @@ public class Player : MonoBehaviour
         EventSystem.Current.RegisterEventListener<GotoNextLevelContext>(OnGotoNextLevel);
         playerCamera = Camera.main;
         health = maxHealth;
-        characterController = GetComponent<CharacterController>();
+        CharacterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -67,6 +70,7 @@ public class Player : MonoBehaviour
     {
         RaycastHit hit;
 
+        // shot
         if(Input.GetButtonDown("Fire1"))
         {
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 200))
@@ -78,15 +82,18 @@ public class Player : MonoBehaviour
             Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
         }
 
-        if(Input.GetButtonDown("Interact"))
+        // check for interactables
+        bool success = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, InteractionDistance, InteractionLayerMask);
+        if(success)
         {
-            bool success = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3, TerminalLayerMask);
-            if(success)
+            IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+            interactable.OnInteractable();
+            if(Input.GetButtonDown("Interact"))
             {
-                Terminal terminal = hit.collider.gameObject.GetComponent<Terminal>();
-                terminal.HandleInteract();
+                interactable.Interact();
             }
         }
+
     }
 
     void OnGroundPound(GroundPoundContext ctx)
@@ -122,8 +129,8 @@ public class Player : MonoBehaviour
 
     public void OnGotoNextLevel(GotoNextLevelContext context)
     {
-        characterController.enabled = false;
+        CharacterController.enabled = false;
         transform.position = context.location;
-        characterController.enabled = true;
+        CharacterController.enabled = true;
     }
 }
