@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
     public GameObject HitParticle;
     public float maxHealth;
 
+    public CharacterController characterController;
+
     // private variables
     private Camera playerCamera;
     private float health;
@@ -57,6 +59,7 @@ public class Player : MonoBehaviour
         EventSystem.Current.RegisterEventListener<GotoNextLevelContext>(OnGotoNextLevel);
         playerCamera = Camera.main;
         health = maxHealth;
+        characterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -120,6 +123,9 @@ public class Player : MonoBehaviour
     public void OnGotoNextLevel(GotoNextLevelContext context)
     {
         Debug.Log("poopy stinker");
+        characterController.enabled = false;
         transform.position = context.location + Vector3.up * 10;
+        characterController.enabled = true;
+        Debug.Log(transform.position);
     }
 }
