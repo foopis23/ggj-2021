@@ -17,11 +17,36 @@ public class PlayerHealthChangedCtx : EventContext
     }
 }
 
+public class BulletHitCtx : EventContext
+{
+    public RaycastHit hit;
+    public float damage;
+
+    public BulletHitCtx(RaycastHit hit, float damage)
+    {
+        this.hit = hit;
+        this.damage = damage;
+    }
+}
+
+public class GotoNextLevelContext : EventContext
+{
+    public Vector3 location;
+    
+    public GotoNextLevelContext(Vector3 location)
+    {
+        this.location = location;
+    }
+}
+
 public class Player : MonoBehaviour
 {
     // public variables
+    public LayerMask TerminalLayerMask;
     public GameObject HitParticle;
     public float maxHealth;
+
+    public CharacterController characterController;
 
     // private variables
     private Camera playerCamera;
@@ -31,8 +56,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         EventSystem.Current.RegisterEventListener<GroundPoundContext>(OnGroundPound);
+        EventSystem.Current.RegisterEventListener<GotoNextLevelContext>(OnGotoNextLevel);
         playerCamera = Camera.main;
         health = maxHealth;
+        characterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -42,13 +69,24 @@ public class Player : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1"))
         {
-            Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 200);
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 200))
+            {
+                EventSystem.Current.FireEvent(new BulletHitCtx(hit, 10));
+            }
             GameObject particleObject = Instantiate(HitParticle, hit.point, Quaternion.LookRotation(hit.normal));
             ParticleSystem particleSystem = particleObject.GetComponent<ParticleSystem>();
             Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
         }
 
-        Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 2);
+        if(Input.GetButtonDown("Interact"))
+        {
+            bool success = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3, TerminalLayerMask);
+            if(success)
+            {
+                Terminal terminal = hit.collider.gameObject.GetComponent<Terminal>();
+                terminal.HandleInteract();
+            }
+        }
     }
 
     void OnGroundPound(GroundPoundContext ctx)
@@ -80,5 +118,12 @@ public class Player : MonoBehaviour
         {
             //perish
         }
+    }
+
+    public void OnGotoNextLevel(GotoNextLevelContext context)
+    {
+        characterController.enabled = false;
+        transform.position = context.location;
+        characterController.enabled = true;
     }
 }

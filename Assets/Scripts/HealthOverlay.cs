@@ -16,6 +16,7 @@ public class HealthOverlay : MonoBehaviour
         EventSystem.Current.RegisterEventListener<PlayerHealthChangedCtx>(OnHealthChange);
         ASCII.Instance.DrawBox('#', Color.white, Color.black, x, y, width, height);
         drawHealth(1.0f);
+        ASCII.Instance.PutChar('#', Color.white, 60, 30);
     }
 
     void drawHealth(float percent)

@@ -1,15 +1,27 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CallbackEvents;
+
+public class GenerateNextLevelContext : EventContext
+{
+    public Vector3 location;
+
+    public GenerateNextLevelContext(Vector3 location)
+    {
+        this.location = location;
+    }
+}
 
 public class MapGenerator : MonoBehaviour
 {
     // constants
-    public const int ROOM_SIZE = 24;
+    public const int ROOM_SIZE = 48;
     public const int LEVEL_OFFSET = 1000;
 
     // public variables
     public GameObject[] RoomPrefabs;
+    public GameObject TerminalPrefab;
     public int NumRooms = 10;
 
     // private variables
@@ -22,27 +34,28 @@ public class MapGenerator : MonoBehaviour
     }
     
     // Automatic Properties
-    public List<Level> Levels { get; private set; }
+    public Dictionary<Vector3, Level> Levels { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
         random = new System.Random();
-        Levels = new List<Level>();
-        nextLevelLocation = Vector3.left;
+        Levels = new Dictionary<Vector3, Level>();
+        nextLevelLocation = Vector3.zero;
 
-        GenerateLevel();
+        EventSystem.Current.RegisterEventListener<GenerateNextLevelContext>(OnEnterNextLevelEvent);
+
+        GenerateLevel(Vector3.zero);
     }
 
-    public void GenerateLevel()
+    public void GenerateLevel(Vector3 levelLocation)
     {
         Level level = new Level();
-        Vector3 levelLocation = LEVEL_OFFSET * NextLevelLocation;
         int numTerminals = Levels.Count == 0 ? 3 : random.Next(1, 4);
 
         Vector2[] directions = {Vector2.up, Vector2.right, Vector2.down, Vector2.left};
         List<Vector2> roomLocations = new List<Vector2>();
-        List<Vector2> terminalLocations = new List<Vector2>();
+        List<Vector2> terminalRoomLocations = new List<Vector2>();
         roomLocations.Add(Vector2.zero);
 
         while(roomLocations.Count < NumRooms)
@@ -55,25 +68,37 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        while(terminalLocations.Count < numTerminals)
+        while(terminalRoomLocations.Count < numTerminals)
         {
             Vector2 randRoom = roomLocations[random.Next(roomLocations.Count)];
             if(randRoom != Vector2.zero)
             {
-                terminalLocations.Add(randRoom);
+                terminalRoomLocations.Add(randRoom);
             }
         }
 
         foreach(Vector2 roomLocation in roomLocations)
         {
             GameObject roomPrefab = RoomPrefabs[random.Next(RoomPrefabs.Length)];
-            GameObject room = Instantiate(roomPrefab);
+            GameObject roomObject = Instantiate(roomPrefab);
             Vector2 realPosition = roomLocation * ROOM_SIZE;
-            room.transform.position = levelLocation + new Vector3(realPosition.x, 0, realPosition.y);
-            level.Rooms.Add(room.GetComponent<Room>());
+            roomObject.transform.position = levelLocation + new Vector3(realPosition.x, 0, realPosition.y);
+            Room room = roomObject.GetComponent<Room>();
+            level.Rooms.Add(room);
+
+            if(terminalRoomLocations.Contains(roomLocation))
+            {
+                GameObject terminalObject = Instantiate(TerminalPrefab);
+                GameObject terminalPlacementObject = room.TerminalLocations[random.Next(room.TerminalLocations.Length)];
+                terminalObject.transform.position = terminalPlacementObject.transform.position;
+                terminalObject.transform.rotation = terminalPlacementObject.transform.rotation;
+                Terminal terminal = terminalObject.GetComponent<Terminal>();
+                terminal.LinkedLevelLocation = LEVEL_OFFSET * NextLevelLocation;
+                level.Terminals.Add(terminal);
+            }
         }
 
-        Levels.Add(level);
+        Levels.Add(levelLocation, level);
     }
  
     public void UpdateNextLevelLocation()
@@ -88,5 +113,15 @@ public class MapGenerator : MonoBehaviour
                 nextLevelLocation.y++;
             }
         }
+    }
+
+    public void OnEnterNextLevelEvent(GenerateNextLevelContext context)
+    {
+        if(!Levels.ContainsKey(context.location))
+        {
+            GenerateLevel(context.location);
+        }
+
+        EventSystem.Current.FireEvent(new GotoNextLevelContext(context.location + new Vector3(ROOM_SIZE / 2, 10, -ROOM_SIZE / 2)));
     }
 }
