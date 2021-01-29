@@ -41,8 +41,11 @@ public class ZombieAI : MonoBehaviour
     public float groundPoundDamage;
     public bool groundPoundLinearFalloff;
 
+    public float maxHealth;
+
     private Vector3 lastSeenPlayerPos;
     private float lastPlayerSeenCheck;
+    private float health;
 
     //state flags
     private bool isAgro;
@@ -72,6 +75,10 @@ public class ZombieAI : MonoBehaviour
         isAttacking = false;
         isAttackCoolingDown = false;
         navMeshAgent.updateRotation = false;
+
+        health = maxHealth;
+
+        EventSystem.Current.RegisterEventListener<BulletHitCtx>(OnBulletHit);
     }
 
     void Update()
@@ -175,5 +182,19 @@ public class ZombieAI : MonoBehaviour
     void OnLookingForPlayer()
     {
         isAgro = canSeePlayer;
+    }
+
+    private void takeDamage(float damage)
+    {
+        health -= damage;
+    }
+
+    void OnBulletHit(BulletHitCtx ctx)
+    {
+        Debug.Log("Hey Shitasss");
+
+        if (gameObject.Equals(ctx.hit.collider.gameObject)) {
+            takeDamage(ctx.damage);
+        }
     }
 }

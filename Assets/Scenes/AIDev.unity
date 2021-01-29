@@ -7969,6 +7969,10 @@ PrefabInstance:
       propertyPath: groundPoundDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7824608064262084805, guid: 9dcd4df867e941f4c9a3c62181860fe2, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7824608064262084826, guid: 9dcd4df867e941f4c9a3c62181860fe2, type: 3}
       propertyPath: m_Name
       value: Zombie
