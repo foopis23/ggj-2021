@@ -104,6 +104,7 @@ public class Player : MonoBehaviour
 
     public void OnGotoNextLevel(GotoNextLevelContext context)
     {
+        Debug.Log("poopy stinker");
         transform.position = context.location + Vector3.up * 10;
     }
 }

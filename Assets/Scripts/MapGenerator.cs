@@ -34,16 +34,16 @@ public class MapGenerator : MonoBehaviour
     }
     
     // Automatic Properties
-    public List<Level> Levels { get; private set; }
+    public Dictionary<Vector3, Level> Levels { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
         random = new System.Random();
-        Levels = new List<Level>();
+        Levels = new Dictionary<Vector3, Level>();
         nextLevelLocation = Vector3.zero;
 
-        EventSystem.Current.RegisterEventListener<GenerateNextLevelContext>(OnGenerateNextLevelEvent);
+        EventSystem.Current.RegisterEventListener<GenerateNextLevelContext>(OnEnterNextLevelEvent);
 
         GenerateLevel(Vector3.zero);
     }
@@ -98,7 +98,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        Levels.Add(level);
+        Levels.Add(levelLocation, level);
     }
  
     public void UpdateNextLevelLocation()
@@ -115,9 +115,13 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public void OnGenerateNextLevelEvent(GenerateNextLevelContext context)
+    public void OnEnterNextLevelEvent(GenerateNextLevelContext context)
     {
-        GenerateLevel(context.location);
+        if(!Levels.ContainsKey(context.location))
+        {
+            GenerateLevel(context.location);
+        }
+
         EventSystem.Current.FireEvent(new GotoNextLevelContext(context.location));
     }
 }
