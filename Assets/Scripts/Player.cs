@@ -42,8 +42,9 @@ public class GotoNextLevelContext : EventContext
 public class Player : MonoBehaviour
 {
     // public variables
-    public LayerMask TerminalLayerMask;
+    public LayerMask InteractionLayerMask;
     public GameObject HitParticle;
+    public int InteractionDistance = 2;
     public float maxHealth;
 
     // private variables
@@ -69,6 +70,7 @@ public class Player : MonoBehaviour
     {
         RaycastHit hit;
 
+        // shot
         if(Input.GetButtonDown("Fire1"))
         {
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 200))
@@ -80,15 +82,18 @@ public class Player : MonoBehaviour
             Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
         }
 
-        if(Input.GetButtonDown("Interact"))
+        // check for interactables
+        bool success = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, InteractionDistance, InteractionLayerMask);
+        if(success)
         {
-            bool success = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3, TerminalLayerMask);
-            if(success)
+            IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+            interactable.OnInteractable();
+            if(Input.GetButtonDown("Interact"))
             {
-                Terminal terminal = hit.collider.gameObject.GetComponent<Terminal>();
-                terminal.HandleInteract();
+                interactable.Interact();
             }
         }
+
     }
 
     void OnGroundPound(GroundPoundContext ctx)
