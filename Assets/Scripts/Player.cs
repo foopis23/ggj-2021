@@ -17,9 +17,20 @@ public class PlayerHealthChangedCtx : EventContext
     }
 }
 
+public class GotoNextLevelContext : EventContext
+{
+    public Vector3 location;
+    
+    public GotoNextLevelContext(Vector3 location)
+    {
+        this.location = location;
+    }
+}
+
 public class Player : MonoBehaviour
 {
     // public variables
+    public LayerMask TerminalLayerMask;
     public GameObject HitParticle;
     public float maxHealth;
 
@@ -31,6 +42,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         EventSystem.Current.RegisterEventListener<GroundPoundContext>(OnGroundPound);
+        EventSystem.Current.RegisterEventListener<GotoNextLevelContext>(OnGotoNextLevel);
         playerCamera = Camera.main;
         health = maxHealth;
     }
@@ -48,7 +60,15 @@ public class Player : MonoBehaviour
             Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
         }
 
-        Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 2);
+        if(Input.GetButtonDown("Interact"))
+        {
+            bool success = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3, TerminalLayerMask);
+            if(success)
+            {
+                Terminal terminal = hit.collider.gameObject.GetComponent<Terminal>();
+                terminal.HandleInteract();
+            }
+        }
     }
 
     void OnGroundPound(GroundPoundContext ctx)
@@ -80,5 +100,10 @@ public class Player : MonoBehaviour
         {
             //perish
         }
+    }
+
+    public void OnGotoNextLevel(GotoNextLevelContext context)
+    {
+        transform.position = context.location + Vector3.up * 10;
     }
 }

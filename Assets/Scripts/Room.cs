@@ -5,7 +5,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     // public variables
-    GameObject[] TerminalLocations;
+    public GameObject[] TerminalLocations;
 
     // Start is called before the first frame update
     void Start()
