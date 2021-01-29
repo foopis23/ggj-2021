@@ -7,10 +7,14 @@ using CallbackEvents;
 public class GroundPoundContext : EventContext{
     public Vector3 location;
     public float radius;
+    public float damage;
+    public bool linearFalloff;
 
-    public GroundPoundContext(Vector3 location, float radius) {
+    public GroundPoundContext(Vector3 location, float radius, float damage, bool linearFalloff) {
         this.location = location;
         this.radius = radius;
+        this.damage = damage;
+        this.linearFalloff = linearFalloff;
     }
 }
 
@@ -34,6 +38,8 @@ public class ZombieAI : MonoBehaviour
     public float timeBetweenSeePlayerChecks;
     public float rotationDamping;
     public float groundPoundRadius;
+    public float groundPoundDamage;
+    public bool groundPoundLinearFalloff;
 
     private Vector3 lastSeenPlayerPos;
     private float lastPlayerSeenCheck;
@@ -158,7 +164,7 @@ public class ZombieAI : MonoBehaviour
         isAttackCoolingDown = true;
         isAttacking = false;
         EventSystem.Current.CallbackAfter(OnAttackCooldownFinished, attackCoolDownMs);
-        EventSystem.Current.FireEvent(new GroundPoundContext(new Vector3(transform.position.x, transform.position.y, transform.position.z), groundPoundRadius));
+        EventSystem.Current.FireEvent(new GroundPoundContext(new Vector3(transform.position.x, transform.position.y, transform.position.z), groundPoundRadius, groundPoundDamage, groundPoundLinearFalloff));
     }
 
     void OnAttackCooldownFinished()
