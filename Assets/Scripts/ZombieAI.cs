@@ -40,6 +40,12 @@ public class ZombieAI : MonoBehaviour
     public float groundPoundRadius;
     public float groundPoundDamage;
     public bool groundPoundLinearFalloff;
+    public bool invisible;
+
+    public MeshRenderer[] hurtMesh;
+    public Material hurtMaterial;
+    public Material normalMaterial;
+
 
     public float maxHealth;
 
@@ -75,6 +81,7 @@ public class ZombieAI : MonoBehaviour
         isAttacking = false;
         isAttackCoolingDown = false;
         navMeshAgent.updateRotation = false;
+        invisible = false;
 
         health = maxHealth;
 
@@ -186,13 +193,34 @@ public class ZombieAI : MonoBehaviour
 
     private void takeDamage(float damage)
     {
-        health -= damage;
+        if (!invisible)
+        {
+            invisible = true;
+            health -= damage;
+            foreach(MeshRenderer mesh in hurtMesh)
+            {
+                mesh.material = hurtMaterial;
+            }
+            EventSystem.Current.CallbackAfter(OnDamgeFinshed, 400);
+        }
+    }
+
+    private void OnDamgeFinshed()
+    {
+        invisible = false;
+        foreach (MeshRenderer mesh in hurtMesh)
+        {
+            mesh.material = normalMaterial;
+        }
+
+        if (health <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void OnBulletHit(BulletHitCtx ctx)
     {
-        Debug.Log("Hey Shitasss");
-
         if (gameObject.Equals(ctx.hit.collider.gameObject)) {
             takeDamage(ctx.damage);
         }
