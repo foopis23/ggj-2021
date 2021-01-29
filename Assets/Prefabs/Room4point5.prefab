@@ -28290,7 +28290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TerminalLocations:
-  - {fileID: 0}
+  - {fileID: 267233084745330933}
 --- !u!1 &4122949863107454120
 GameObject:
   m_ObjectHideFlags: 0

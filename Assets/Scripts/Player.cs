@@ -46,11 +46,13 @@ public class Player : MonoBehaviour
     public GameObject HitParticle;
     public float maxHealth;
 
-    public CharacterController characterController;
-
     // private variables
     private Camera playerCamera;
     private float health;
+
+    // automatic properties
+    public CharacterController CharacterController { get; set; }
+    public CPMPlayer CPMPlayer { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +61,7 @@ public class Player : MonoBehaviour
         EventSystem.Current.RegisterEventListener<GotoNextLevelContext>(OnGotoNextLevel);
         playerCamera = Camera.main;
         health = maxHealth;
-        characterController = GetComponent<CharacterController>();
+        CharacterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -122,8 +124,8 @@ public class Player : MonoBehaviour
 
     public void OnGotoNextLevel(GotoNextLevelContext context)
     {
-        characterController.enabled = false;
+        CharacterController.enabled = false;
         transform.position = context.location;
-        characterController.enabled = true;
+        CharacterController.enabled = true;
     }
 }
