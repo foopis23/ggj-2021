@@ -4,6 +4,16 @@ using UnityEngine;
 using UnityEngine.AI;
 using CallbackEvents;
 
+public class GroundPoundContext : EventContext{
+    public Vector3 location;
+    public float radius;
+
+    public GroundPoundContext(Vector3 location, float radius) {
+        this.location = location;
+        this.radius = radius;
+    }
+}
+
 public class ZombieAI : MonoBehaviour
 {
     public Transform target;
@@ -22,6 +32,8 @@ public class ZombieAI : MonoBehaviour
     public int lookForLostPlayerMs;
     public int timeToSpotMS;
     public float timeBetweenSeePlayerChecks;
+    public float rotationDamping;
+    public float groundPoundRadius;
 
     private Vector3 lastSeenPlayerPos;
     private float lastPlayerSeenCheck;
@@ -53,13 +65,11 @@ public class ZombieAI : MonoBehaviour
         didSeePlayer = false;
         isAttacking = false;
         isAttackCoolingDown = false;
+        navMeshAgent.updateRotation = false;
     }
 
     void Update()
-    {
-        //reset some stuff
-        navMeshAgent.updatePosition = true;
-
+    {   
         //set animation set
         animator.SetBool("isAttacking", isAttacking);
         animator.SetBool("isAgro", isAgro);
@@ -72,11 +82,10 @@ public class ZombieAI : MonoBehaviour
                 //chase and attack player
                 lastSeenPlayerPos = target.position;
                 hasLastPlayerPos = true;
+                navMeshAgent.SetDestination(target.position);
 
                 if (!isAttacking)
                 {
-                    navMeshAgent.SetDestination(target.position);
-
                     //check if player is close enough to attack
                     if (navMeshAgent.remainingDistance <= attackDistance && !isAttackCoolingDown)
                     {
@@ -84,10 +93,13 @@ public class ZombieAI : MonoBehaviour
                         EventSystem.Current.CallbackAfter(OnAttackFinished, attackTimeMs);
                     }
                 }
-                else
-                {
-                    navMeshAgent.updatePosition = false;
-                }
+
+                Vector3 lookPos = target.position - transform.position;
+                lookPos.y = 0;
+                Quaternion rotation = Quaternion.LookRotation(lookPos);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
+                // transform.LookAt(target.position, Vector3.up);
+
             }else
             {
                 //trigger a countdown for when to stop looking for the player
@@ -109,6 +121,7 @@ public class ZombieAI : MonoBehaviour
         }
         else
         {
+            navMeshAgent.SetDestination(transform.position);
             //wander around
             hasLastPlayerPos = false;
             isAgro = canSeePlayer;
@@ -145,6 +158,7 @@ public class ZombieAI : MonoBehaviour
         isAttackCoolingDown = true;
         isAttacking = false;
         EventSystem.Current.CallbackAfter(OnAttackCooldownFinished, attackCoolDownMs);
+        EventSystem.Current.FireEvent(new GroundPoundContext(new Vector3(transform.position.x, transform.position.y, transform.position.z), groundPoundRadius));
     }
 
     void OnAttackCooldownFinished()
