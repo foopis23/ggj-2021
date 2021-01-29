@@ -6,6 +6,7 @@ public class MapGenerator : MonoBehaviour
 {
     // constants
     public const int ROOM_SIZE = 24;
+    public const int LEVEL_OFFSET = 1000;
 
     // public variables
     public GameObject[] RoomPrefabs;
@@ -13,11 +14,22 @@ public class MapGenerator : MonoBehaviour
 
     // private variables
     private System.Random random;
+    private Vector3 nextLevelLocation;
+    private Vector3 NextLevelLocation
+    {
+        get { UpdateNextLevelLocation(); return nextLevelLocation; }
+        set { nextLevelLocation = value; }
+    }
+    
+    // Automatic Properties
+    public List<Level> Levels { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
         random = new System.Random();
+        nextLevelLocation = Vector3.zero;
+        Levels = new List<Level>();
 
         GenerateMap();
     }
@@ -59,4 +71,18 @@ public class MapGenerator : MonoBehaviour
     }
  
     public void GenerateMap() => GenerateMap(3);
+
+    public void UpdateNextLevelLocation()
+    {
+        nextLevelLocation.x++;
+        if(nextLevelLocation.x >= 10)
+        {
+            nextLevelLocation.x = 0;
+            nextLevelLocation.z++;
+            if(nextLevelLocation.z >= 10)
+            {
+                nextLevelLocation.y++;
+            }
+        }
+    }
 }
