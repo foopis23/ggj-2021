@@ -214,8 +214,9 @@ MonoBehaviour:
   - {fileID: 4071819151367243567, guid: 42f824eb1221d954ba40d9e7a2bc3184, type: 3}
   - {fileID: 4328032582067424495, guid: 55f98e1c6af73b048a7abbdf01019932, type: 3}
   - {fileID: 3410956691297235327, guid: 97caa6afcc3a86f49a032061a9117ab6, type: 3}
+  - {fileID: 522489428994746690, guid: 73bc4fa263a5bb0439e18cb827a5f81f, type: 3}
   TerminalPrefab: {fileID: 5702839198739999026, guid: ed42bd8bee6d7f24dba70dcf30c60fa6, type: 3}
-  NumRooms: 10
+  NumRooms: 15
 --- !u!4 &785878135
 Transform:
   m_ObjectHideFlags: 0
