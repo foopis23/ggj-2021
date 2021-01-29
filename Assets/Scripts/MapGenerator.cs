@@ -122,6 +122,6 @@ public class MapGenerator : MonoBehaviour
             GenerateLevel(context.location);
         }
 
-        EventSystem.Current.FireEvent(new GotoNextLevelContext(context.location));
+        EventSystem.Current.FireEvent(new GotoNextLevelContext(context.location + new Vector3(ROOM_SIZE / 2, 10, -ROOM_SIZE / 2)));
     }
 }

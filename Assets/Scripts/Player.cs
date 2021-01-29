@@ -122,10 +122,8 @@ public class Player : MonoBehaviour
 
     public void OnGotoNextLevel(GotoNextLevelContext context)
     {
-        Debug.Log("poopy stinker");
         characterController.enabled = false;
-        transform.position = context.location + Vector3.up * 10;
+        transform.position = context.location;
         characterController.enabled = true;
-        Debug.Log(transform.position);
     }
 }
