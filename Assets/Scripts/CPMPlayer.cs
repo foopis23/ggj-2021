@@ -369,6 +369,12 @@ public class CPMPlayer : MonoBehaviour
         playerVelocity.z += accelspeed * wishdir.z;
     }
 
+    public void SetViewRotation(float rotx, float roty)
+    {
+        rotX = rotx;
+        rotY = roty;
+    }
+
     /*
     private void OnGUI()
     {
