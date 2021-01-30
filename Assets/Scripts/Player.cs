@@ -182,6 +182,11 @@ public class Player : MonoBehaviour
             {
                 hasEmptySlot = true;
                 HeldGuns[i].SetData(context.pickup.gunData);
+                if(CurrentGun == i)
+                {
+                    GunManager.Current.GetModel(context.pickup.gunData).SetActive(true);
+                }
+
                 break;
             }
         }
@@ -192,9 +197,11 @@ public class Player : MonoBehaviour
         }
         else
         {
+            GunManager.Current.GetModel(context.pickup.gunData).SetActive(true);
             GunData swapGun = HeldGuns[CurrentGun].GunData;
             HeldGuns[CurrentGun].SetData(context.pickup.gunData);
             context.pickup.gunData = swapGun;
+            GunManager.Current.GetModel(context.pickup.gunData).SetActive(false);
         }
     }
 

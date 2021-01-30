@@ -24,6 +24,11 @@ public class WeaponPickup : MonoBehaviour, IInteractable
     // Start is called before the first frame update
     void Start()
     {
+        ResetModel();
+    }
+
+    public void ResetModel()
+    {
         Model = Instantiate(GunManager.Current.GetModel(gunData), this.transform);
         Model.SetActive(true);
         Model.transform.localPosition = Vector3.zero;
@@ -42,5 +47,7 @@ public class WeaponPickup : MonoBehaviour, IInteractable
     public void Interact()
     {
         EventSystem.Current.FireEvent(new PickupWeaponContext(this));
+        Destroy(Model);
+        ResetModel();
     }
 }

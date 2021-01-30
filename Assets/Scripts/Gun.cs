@@ -6,6 +6,7 @@ using CallbackEvents;
 public class Gun : MonoBehaviour
 {
     // public variables;
+    public LayerMask ShootLayerMask;
     public AudioSource shootSoundy;
 
     // private variables;
@@ -60,7 +61,7 @@ public class Gun : MonoBehaviour
                     Random.value * GunData.Spread - (GunData.Spread * 0.5f)
                 );
 
-                bool success = Physics.Raycast(playerCamera.transform.position, randomSpread * playerCamera.transform.forward, out hit, GunData.BulletRange);
+                bool success = Physics.Raycast(playerCamera.transform.position, randomSpread * playerCamera.transform.forward, out hit, GunData.BulletRange, ShootLayerMask);
                 if(success)
                 {
                     EventSystem.Current.FireEvent(new BulletHitCtx(hit, GunData.BulletDamage));
