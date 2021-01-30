@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using CallbackEvents;
 
-public class PickupItemContext : EventContext
+public class PickupWeaponContext : EventContext
 {
-    public ItemPickup pickup;
+    public WeaponPickup pickup;
 
-    public PickupItemContext(ItemPickup pickup)
+    public PickupWeaponContext(WeaponPickup pickup)
     {
         this.pickup = pickup;
     }
 }
-public class ItemPickup : MonoBehaviour, IInteractable
+
+public class WeaponPickup : MonoBehaviour, IInteractable
 {
+    public GunData gunData;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,6 @@ public class ItemPickup : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        EventSystem.Current.FireEvent(new PickupItemContext(this));
+        EventSystem.Current.FireEvent(new PickupWeaponContext(this));
     }
 }
