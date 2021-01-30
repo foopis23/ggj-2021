@@ -876,6 +876,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 870855737336817319, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: ShootLayerMask.m_Bits
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 870855737446172066, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: ShootLayerMask.m_Bits
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 4640351875311401907, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
       propertyPath: StartingGun
       value: 
