@@ -42,6 +42,7 @@ public class Gun : MonoBehaviour
         lastFire = 0f;
         Empty = false;
         GunData = gunData;
+        shootSoundy.clip = gunData.FireSound;
         animator = GunManager.Current.GetModel(gunData).GetComponent<Animator>();
     }
 

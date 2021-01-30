@@ -12,5 +12,6 @@ public class GunData : ScriptableObject
     public float Spread;
     public int BulletsPerShot;
     public bool Automatic;
+    public AudioClip FireSound;
     public GameObject HitParticle;
 }

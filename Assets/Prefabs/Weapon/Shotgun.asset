@@ -19,4 +19,5 @@ MonoBehaviour:
   Spread: 24
   BulletsPerShot: 8
   Automatic: 0
+  FireSound: {fileID: 8300000, guid: 2a181e029651a47ba9caefdd90ce1409, type: 3}
   HitParticle: {fileID: 3048845753673909732, guid: 62c0c4ba96d934e41b6633b2401e7860, type: 3}
