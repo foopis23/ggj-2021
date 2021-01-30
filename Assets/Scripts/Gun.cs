@@ -11,6 +11,7 @@ public class Gun : MonoBehaviour
     // private variables;
     private float lastFire;
     private Camera playerCamera;
+    private Animator animator;
 
     // automatic properties
     public bool Empty { get; private set; }
@@ -19,6 +20,14 @@ public class Gun : MonoBehaviour
     void Start()
     {
         playerCamera = Camera.main;
+    }
+
+    void Update()
+    {
+        if(!Empty && Time.time > lastFire + GunData.FireCooldown)
+        {
+            animator.SetBool("isFiring", false);
+        }
     }
 
     public void Reset()
@@ -32,6 +41,7 @@ public class Gun : MonoBehaviour
         lastFire = 0f;
         Empty = false;
         GunData = gunData;
+        animator = GunManager.Current.GetModel(gunData).GetComponent<Animator>();
     }
 
     public void Fire()
@@ -40,6 +50,7 @@ public class Gun : MonoBehaviour
         {
             lastFire = Time.time;
             shootSoundy.Play();
+            animator.SetBool("isFiring", true);
             for(int i = 0; i < GunData.BulletsPerShot; i++)
             {
                 RaycastHit hit;

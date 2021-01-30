@@ -26,14 +26,12 @@ public class WeaponPickup : MonoBehaviour, IInteractable
     {
         Model = Instantiate(GunManager.Current.GetModel(gunData), this.transform);
         Model.SetActive(true);
-        Debug.Log(Model.GetComponent<Animator>().enabled = false);
         Model.transform.localPosition = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Model.transform.localPosition);
     }
 
     public void OnInteractable()
