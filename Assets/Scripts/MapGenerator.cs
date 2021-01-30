@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CallbackEvents;
+using UnityEngine.AI;
 
 public class GenerateNextLevelContext : EventContext
 {
@@ -51,6 +52,9 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateLevel(Vector3 levelLocation)
     {
+        GameObject parent = new GameObject(levelLocation.ToString());
+        parent.AddComponent<NavMeshSurface>();
+
         Level level = new Level();
         int numTerminals = Levels.Count == 0 ? 3 : random.Next(1, 4);
 
@@ -81,14 +85,14 @@ public class MapGenerator : MonoBehaviour
         foreach(Vector2 roomLocation in roomLocations)
         {
             GameObject roomPrefab = RoomPrefabs[random.Next(RoomPrefabs.Length)];
-            GameObject roomObject = Instantiate(roomPrefab);
+            GameObject roomObject = Instantiate(roomPrefab, parent.transform);
             Vector2 realPosition = roomLocation * ROOM_SIZE;
             roomObject.transform.position = levelLocation + new Vector3(realPosition.x, 0, realPosition.y);
             foreach(Vector2 direction in directions)
             {
                 if(!roomLocations.Contains(roomLocation + direction))
                 {
-                    GameObject wallObject = Instantiate(WallPrefab);
+                    GameObject wallObject = Instantiate(WallPrefab, parent.transform);
                     wallObject.transform.position = roomObject.transform.position + new Vector3(24, 2.5f, -24) + new Vector3(direction.x, 0, direction.y) * 24;
                     if(direction == Vector2.up || direction == Vector2.down)
                     {
@@ -102,7 +106,7 @@ public class MapGenerator : MonoBehaviour
 
             if(terminalRoomLocations.Contains(roomLocation))
             {
-                GameObject terminalObject = Instantiate(TerminalPrefab);
+                GameObject terminalObject = Instantiate(TerminalPrefab, parent.transform);
                 GameObject terminalPlacementObject = room.TerminalLocations[random.Next(room.TerminalLocations.Length)];
                 terminalObject.transform.position = terminalPlacementObject.transform.position;
                 terminalObject.transform.rotation = terminalPlacementObject.transform.rotation;
@@ -112,6 +116,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
+        parent.GetComponent<NavMeshSurface>().BuildNavMesh();
         Levels.Add(levelLocation, level);
     }
  
