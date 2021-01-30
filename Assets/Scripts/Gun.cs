@@ -19,19 +19,19 @@ public class Gun : MonoBehaviour
     void Start()
     {
         playerCamera = Camera.main;
-        Reset();
     }
 
     public void Reset()
     {
-        Empty = true;
         lastFire = 0f;
+        Empty = true;
     }
 
     public void SetData(GunData gunData)
     {
-        GunData = gunData;
+        lastFire = 0f;
         Empty = false;
+        GunData = gunData;
     }
 
     public void Fire()
