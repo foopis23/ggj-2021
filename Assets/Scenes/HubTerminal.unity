@@ -534,46 +534,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 1522212071}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 505415112b4e9aa4a90082f6343fa6d1, type: 3}
+  m_Script: {fileID: 11500000, guid: bd084597961b2e543b3a6e1a6410845f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   terminalWidth: 120
   terminalHeight: 60
-  test:
-  - Sexton OS (Version 54.3.69420.26789
-  - (c) 2152 Sexton Software . All rights probably reserved.
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   GUI: {fileID: 1522212073}
+  ConsoleElements:
+  - text: Sexton OS (Version 54.3.69420.26789)\n
+    isSlowType: 0
+    slowTypeDeltaTime: 0.2
+    waitAfterTime: 1
+  - text: (c) 2152 Sexton Software. All rights probably reserved.\n
+    isSlowType: 0
+    slowTypeDeltaTime: 0.2
+    waitAfterTime: 1
+  - text: 'player: ~$ '
+    isSlowType: 0
+    slowTypeDeltaTime: 2
+    waitAfterTime: 2
+  - text: ./titlescreen\n
+    isSlowType: 1
+    slowTypeDeltaTime: 0.1
+    waitAfterTime: 1.25
+  - text: 10%\n
+    isSlowType: 0
+    slowTypeDeltaTime: 0.2
+    waitAfterTime: 1.25
+  - text: 66%\n
+    isSlowType: 0
+    slowTypeDeltaTime: 0.2
+    waitAfterTime: 1.25
+  - text: Done!
+    isSlowType: 0
+    slowTypeDeltaTime: 0.2
+    waitAfterTime: 1
