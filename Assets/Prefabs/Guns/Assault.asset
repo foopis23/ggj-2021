@@ -19,4 +19,4 @@ MonoBehaviour:
   Spread: 8
   BulletsPerShot: 1
   Automatic: 1
-  HitParticle: {fileID: 1286200894474221427, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+  HitParticle: {fileID: 3048845753673909732, guid: 62c0c4ba96d934e41b6633b2401e7860, type: 3}

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Shotgun
   BulletDamage: 13
-  BulletRange: 40
-  FireCooldown: 2
-  Spread: 30
+  BulletRange: 30
+  FireCooldown: 1.2
+  Spread: 24
   BulletsPerShot: 8
   Automatic: 0
-  HitParticle: {fileID: 0}
+  HitParticle: {fileID: 3048845753673909732, guid: 62c0c4ba96d934e41b6633b2401e7860, type: 3}
