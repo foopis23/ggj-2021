@@ -110,8 +110,8 @@ public class MapGenerator : MonoBehaviour
                 GameObject terminalPlacementObject = room.TerminalLocations[random.Next(room.TerminalLocations.Length)];
                 terminalObject.transform.position = terminalPlacementObject.transform.position;
                 terminalObject.transform.rotation = terminalPlacementObject.transform.rotation;
-                terminalObject.transform.position += new Vector3(0, -2, 0);
-                terminalObject.transform.rotation = Quaternion.Euler(-90, 0, 0);
+                terminalObject.transform.position += new Vector3(0, -0, 0);
+                terminalObject.transform.rotation = Quaternion.Euler(-0, 0, 0);
                 Terminal terminal = terminalObject.GetComponent<Terminal>();
                 terminal.LinkedLevelLocation = LEVEL_OFFSET * NextLevelLocation;
                 level.Terminals.Add(terminal);
