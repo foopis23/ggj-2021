@@ -21,10 +21,8 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Gun Start Function");
         lastFire = 0f;
         playerCamera = Camera.main;
-        Debug.Log(lastFire);
     }
 
     void Update()
@@ -34,7 +32,6 @@ public class Gun : MonoBehaviour
 
     public void Fire()
     {
-        Debug.Log(lastFire);
         if(Time.time > lastFire + FireCooldown)
         {
             lastFire = Time.time;
