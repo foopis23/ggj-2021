@@ -19,6 +19,8 @@ public class Gun : MonoBehaviour
     private float lastFire;
     private Camera playerCamera;
 
+    public AudioSource shootSoundy;
+
     void Start()
     {
         lastFire = 0f;
@@ -35,6 +37,7 @@ public class Gun : MonoBehaviour
         if(Time.time > lastFire + FireCooldown)
         {
             lastFire = Time.time;
+            shootSoundy.Play();
             for(int i = 0; i < BulletsPerShot; i++)
             {
                 RaycastHit hit;

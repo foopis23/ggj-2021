@@ -180,6 +180,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 626cdce81b366aa44a5949e9d94c7ba9, type: 3}
+--- !u!1 &507777396 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5434842649079939897, guid: 583b200b568815244b3bb1cb0f4679d5, type: 3}
+  m_PrefabInstance: {fileID: 5434842649510221698}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &785878133
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +336,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8056982616779034129, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: CurrentGun
+      value: 
+      objectReference: {fileID: 507777396}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
 --- !u!1001 &5434842649510221698
@@ -340,6 +349,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1835884903, guid: 583b200b568815244b3bb1cb0f4679d5, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: bd3c4f6b3ebabf640a96791484566772, type: 3}
     - target: {fileID: 5434842649079939897, guid: 583b200b568815244b3bb1cb0f4679d5, type: 3}
       propertyPath: m_Name
       value: Pistol
