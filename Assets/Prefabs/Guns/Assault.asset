@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b54785bdd7433a47b4e1878e192756b, type: 3}
   m_Name: Assault
   m_EditorClassIdentifier: 
-  Name: Assault Rifle
+  Model: Assault
   BulletDamage: 2
   BulletRange: 200
   FireCooldown: 0.07

@@ -22,6 +22,7 @@ public class MapGenerator : MonoBehaviour
 
     // public variables
     public GameObject[] RoomPrefabs;
+    public GameObject StartingRoomPrefab;
     public GameObject WallPrefab;
     public GameObject TerminalPrefab;
     public int NumRooms = 10;
@@ -84,7 +85,15 @@ public class MapGenerator : MonoBehaviour
 
         foreach(Vector2 roomLocation in roomLocations)
         {
-            GameObject roomPrefab = RoomPrefabs[random.Next(RoomPrefabs.Length)];
+            GameObject roomPrefab;
+            if(roomLocation == Vector2.zero)
+            {
+                roomPrefab = StartingRoomPrefab;
+            }
+            else
+            {
+                roomPrefab = RoomPrefabs[random.Next(RoomPrefabs.Length)];
+            }
             GameObject roomObject = Instantiate(roomPrefab, parent.transform);
             Vector2 realPosition = roomLocation * ROOM_SIZE;
             roomObject.transform.position = levelLocation + new Vector3(realPosition.x, 0, realPosition.y);
@@ -110,8 +119,8 @@ public class MapGenerator : MonoBehaviour
                 GameObject terminalPlacementObject = room.TerminalLocations[random.Next(room.TerminalLocations.Length)];
                 terminalObject.transform.position = terminalPlacementObject.transform.position;
                 terminalObject.transform.rotation = terminalPlacementObject.transform.rotation;
-                terminalObject.transform.position += new Vector3(0, -2, 0);
-                terminalObject.transform.rotation = Quaternion.Euler(-90, 0, 0);
+                terminalObject.transform.position += new Vector3(0, -0, 0);
+                terminalObject.transform.rotation = Quaternion.Euler(-0, 0, 0);
                 Terminal terminal = terminalObject.GetComponent<Terminal>();
                 terminal.LinkedLevelLocation = LEVEL_OFFSET * NextLevelLocation;
                 level.Terminals.Add(terminal);

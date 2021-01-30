@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 {
     // public variables
     public LayerMask InteractionLayerMask;
-    public GunData[] AllGuns;
+    public GunData StartingGun;
     public Gun[] HeldGuns;
     public int CurrentGun = 0;
     public int InteractionDistance = 2;
@@ -62,14 +62,20 @@ public class Player : MonoBehaviour
     {
         EventSystem.Current.RegisterEventListener<GroundPoundContext>(OnGroundPound);
         EventSystem.Current.RegisterEventListener<GotoNextLevelContext>(OnGotoNextLevel);
+        EventSystem.Current.RegisterEventListener<PickupWeaponContext>(OnPickupWeapon);
+        EventSystem.Current.RegisterEventListener<PickupItemContext>(OnPickupItem);
         playerCamera = Camera.main;
         health = maxHealth;
         CharacterController = GetComponent<CharacterController>();
 
+        foreach(Gun gun in HeldGuns)
+        {
+            gun.Reset();
+        }
+
         // Set starting guns
-        HeldGuns[0].SetData(AllGuns[0]);
-        HeldGuns[1].SetData(AllGuns[1]);
-        HeldGuns[2].SetData(AllGuns[2]);
+        HeldGuns[0].SetData(StartingGun);
+        SwitchWeapons(HeldGuns[0], HeldGuns[0]);
     }
 
     // Update is called once per frame
@@ -79,12 +85,9 @@ public class Player : MonoBehaviour
         Gun heldGun = HeldGuns[CurrentGun];
 
         // shot
-        if((Input.GetButtonDown("Fire1") && !heldGun.GunData.Automatic) || (Input.GetButton("Fire1") && heldGun.GunData.Automatic))
+        if(!heldGun.Empty && ((Input.GetButtonDown("Fire1") && !heldGun.GunData.Automatic) || (Input.GetButton("Fire1") && heldGun.GunData.Automatic)))
         {
-            if(!heldGun.Empty)
-            {
-                heldGun.Fire();
-            }
+            heldGun.Fire();
         }
 
         // check for interactables
@@ -97,6 +100,38 @@ public class Player : MonoBehaviour
             {
                 interactable.Interact();
             }
+        }
+
+        // switching weapons
+        if(Input.GetButtonDown("Select Weapon1"))
+        {
+            if(CurrentGun != 0)
+            {
+                SwitchWeapons(heldGun, HeldGuns[0]);
+            }
+
+            CurrentGun = 0;
+        }
+        if(Input.GetButtonDown("Select Weapon2"))
+        {
+            if(CurrentGun != 1)
+            {
+                SwitchWeapons(heldGun, HeldGuns[1]);
+            }
+
+            CurrentGun = 1;
+        }
+    }
+
+    private void SwitchWeapons(Gun prev, Gun next)
+    {
+        if(!prev.Empty)
+        {
+            GunManager.Current.GetModel(prev.GunData).SetActive(false);
+        }
+        if(!next.Empty)
+        {
+            GunManager.Current.GetModel(next.GunData).SetActive(true);
         }
     }
 
@@ -136,5 +171,35 @@ public class Player : MonoBehaviour
         CharacterController.enabled = false;
         transform.position = context.location;
         CharacterController.enabled = true;
+    }
+
+    public void OnPickupWeapon(PickupWeaponContext context)
+    {
+        bool hasEmptySlot = false;
+        for(int i = 0; i < HeldGuns.Length; i++)
+        {
+            if(HeldGuns[i].Empty)
+            {
+                hasEmptySlot = true;
+                HeldGuns[i].SetData(context.pickup.gunData);
+                break;
+            }
+        }
+
+        if(hasEmptySlot)
+        {
+            Destroy(context.pickup.gameObject);
+        }
+        else
+        {
+            GunData swapGun = HeldGuns[CurrentGun].GunData;
+            HeldGuns[CurrentGun].SetData(context.pickup.gunData);
+            context.pickup.gunData = swapGun;
+        }
+    }
+
+    public void OnPickupItem(PickupItemContext context)
+    {
+
     }
 }

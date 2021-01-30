@@ -1,8 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CallbackEvents;
 
-public class ItemPickup : MonoBehaviour
+public class PickupItemContext : EventContext
+{
+    public ItemPickup pickup;
+
+    public PickupItemContext(ItemPickup pickup)
+    {
+        this.pickup = pickup;
+    }
+}
+public class ItemPickup : MonoBehaviour, IInteractable
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +24,15 @@ public class ItemPickup : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnInteractable()
+    {
+        //TODO: show UI prompt
+    }
+
+    public void Interact()
+    {
+        EventSystem.Current.FireEvent(new PickupItemContext(this));
     }
 }

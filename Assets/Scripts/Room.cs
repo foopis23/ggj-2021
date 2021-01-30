@@ -6,6 +6,7 @@ public class Room : MonoBehaviour
 {
     // public variables
     public GameObject[] TerminalLocations;
+    public GameObject[] SpawnLocations;
 
     // Start is called before the first frame update
     void Start()
