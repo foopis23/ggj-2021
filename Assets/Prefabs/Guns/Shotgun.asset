@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b54785bdd7433a47b4e1878e192756b, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  Name: Shotgun
+  Model: Shotgun
   BulletDamage: 13
   BulletRange: 30
   FireCooldown: 1.2

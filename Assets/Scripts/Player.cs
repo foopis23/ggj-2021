@@ -76,7 +76,6 @@ public class Player : MonoBehaviour
         // Set starting guns
         HeldGuns[0].SetData(StartingGun);
         SwitchWeapons(HeldGuns[0], HeldGuns[0]);
-        Debug.Log(HeldGuns[0].Empty);
     }
 
     // Update is called once per frame
@@ -85,7 +84,6 @@ public class Player : MonoBehaviour
         RaycastHit hit;
         Gun heldGun = HeldGuns[CurrentGun];
 
-        Debug.Log(heldGun.Empty);
         // shot
         if(!heldGun.Empty && ((Input.GetButtonDown("Fire1") && !heldGun.GunData.Automatic) || (Input.GetButton("Fire1") && heldGun.GunData.Automatic)))
         {
