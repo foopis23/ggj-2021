@@ -68,8 +68,15 @@ public class Player : MonoBehaviour
         health = maxHealth;
         CharacterController = GetComponent<CharacterController>();
 
+        foreach(Gun gun in HeldGuns)
+        {
+            gun.Reset();
+        }
+
         // Set starting guns
         HeldGuns[0].SetData(StartingGun);
+        SwitchWeapons(HeldGuns[0], HeldGuns[0]);
+        Debug.Log(HeldGuns[0].Empty);
     }
 
     // Update is called once per frame
@@ -78,13 +85,11 @@ public class Player : MonoBehaviour
         RaycastHit hit;
         Gun heldGun = HeldGuns[CurrentGun];
 
+        Debug.Log(heldGun.Empty);
         // shot
-        if((Input.GetButtonDown("Fire1") && !heldGun.GunData.Automatic) || (Input.GetButton("Fire1") && heldGun.GunData.Automatic))
+        if(!heldGun.Empty && ((Input.GetButtonDown("Fire1") && !heldGun.GunData.Automatic) || (Input.GetButton("Fire1") && heldGun.GunData.Automatic)))
         {
-            if(!heldGun.Empty)
-            {
-                heldGun.Fire();
-            }
+            heldGun.Fire();
         }
 
         // check for interactables
@@ -102,11 +107,33 @@ public class Player : MonoBehaviour
         // switching weapons
         if(Input.GetButtonDown("Select Weapon1"))
         {
+            if(CurrentGun != 0)
+            {
+                SwitchWeapons(heldGun, HeldGuns[0]);
+            }
+
             CurrentGun = 0;
         }
         if(Input.GetButtonDown("Select Weapon2"))
         {
+            if(CurrentGun != 1)
+            {
+                SwitchWeapons(heldGun, HeldGuns[1]);
+            }
+
             CurrentGun = 1;
+        }
+    }
+
+    private void SwitchWeapons(Gun prev, Gun next)
+    {
+        if(!prev.Empty)
+        {
+            GunManager.Current.GetModel(prev.GunData).SetActive(false);
+        }
+        if(!next.Empty)
+        {
+            GunManager.Current.GetModel(next.GunData).SetActive(true);
         }
     }
 

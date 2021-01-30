@@ -15,12 +15,17 @@ public class PickupWeaponContext : EventContext
 
 public class WeaponPickup : MonoBehaviour, IInteractable
 {
+    // public variables
     public GunData gunData;
+
+    // automatic properties
+    public GameObject Model { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Model = Instantiate(GunManager.Current.GetModel(gunData), this.transform);
+        Model.SetActive(true);
     }
 
     // Update is called once per frame
