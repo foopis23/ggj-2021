@@ -352,7 +352,7 @@ PrefabInstance:
     - target: {fileID: 1835884903, guid: 583b200b568815244b3bb1cb0f4679d5, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: bd3c4f6b3ebabf640a96791484566772, type: 3}
+      objectReference: {fileID: 8300000, guid: 1b3c00f168ad44084b150071f26c36e5, type: 3}
     - target: {fileID: 5434842649079939897, guid: 583b200b568815244b3bb1cb0f4679d5, type: 3}
       propertyPath: m_Name
       value: Pistol
