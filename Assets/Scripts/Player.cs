@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 {
     // public variables
     public LayerMask InteractionLayerMask;
-    public GunData[] AllGuns;
+    public GunData StartingGun;
     public Gun[] HeldGuns;
     public int CurrentGun = 0;
     public int InteractionDistance = 2;
@@ -67,9 +67,7 @@ public class Player : MonoBehaviour
         CharacterController = GetComponent<CharacterController>();
 
         // Set starting guns
-        HeldGuns[0].SetData(AllGuns[0]);
-        HeldGuns[1].SetData(AllGuns[1]);
-        HeldGuns[2].SetData(AllGuns[2]);
+        HeldGuns[0].SetData(StartingGun);
     }
 
     // Update is called once per frame
@@ -97,6 +95,16 @@ public class Player : MonoBehaviour
             {
                 interactable.Interact();
             }
+        }
+
+        // switching weapons
+        if(Input.GetButtonDown("Select Weapon1"))
+        {
+            CurrentGun = 0;
+        }
+        if(Input.GetButtonDown("Select Weapon2"))
+        {
+            CurrentGun = 1;
         }
     }
 

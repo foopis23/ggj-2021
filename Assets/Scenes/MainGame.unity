@@ -557,7 +557,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8056982616779034129, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
       propertyPath: HeldGuns.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8056982616779034129, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
       propertyPath: CurrentGun
@@ -591,6 +591,10 @@ PrefabInstance:
       propertyPath: AllGuns.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: cbf8fda08c447384b81388301fb62c3d, type: 2}
+    - target: {fileID: 8056982616779034129, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
+      propertyPath: StartingGun
+      value: 
+      objectReference: {fileID: 11400000, guid: 46750bd5d240c0a4595008d1383ed5ce, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b616caf96aae2c45bb4c15d339f7af1, type: 3}
 --- !u!1 &1861085056
