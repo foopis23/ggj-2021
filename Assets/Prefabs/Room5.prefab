@@ -1403,6 +1403,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TerminalLocations:
   - {fileID: 8228867631667235138}
+  SpawnLocations:
+  - {fileID: 8228867631667235138}
 --- !u!1 &2128208251900854374
 GameObject:
   m_ObjectHideFlags: 0
