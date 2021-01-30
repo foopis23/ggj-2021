@@ -3476,25 +3476,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1024065157 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7240315361061159904, guid: 626cdce81b366aa44a5949e9d94c7ba9, type: 3}
-  m_PrefabInstance: {fileID: 1313131851}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1024065158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1024065157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
-  ListenerNumber: -1
 --- !u!43 &1056114592
 Mesh:
   m_ObjectHideFlags: 0
