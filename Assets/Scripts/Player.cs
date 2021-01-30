@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
     {
         EventSystem.Current.RegisterEventListener<GroundPoundContext>(OnGroundPound);
         EventSystem.Current.RegisterEventListener<GotoNextLevelContext>(OnGotoNextLevel);
+        EventSystem.Current.RegisterEventListener<PickupWeaponContext>(OnPickupWeapon);
+        EventSystem.Current.RegisterEventListener<PickupItemContext>(OnPickupItem);
         playerCamera = Camera.main;
         health = maxHealth;
         CharacterController = GetComponent<CharacterController>();
@@ -144,5 +146,35 @@ public class Player : MonoBehaviour
         CharacterController.enabled = false;
         transform.position = context.location;
         CharacterController.enabled = true;
+    }
+
+    public void OnPickupWeapon(PickupWeaponContext context)
+    {
+        bool hasEmptySlot = false;
+        for(int i = 0; i < HeldGuns.Length; i++)
+        {
+            if(HeldGuns[i].Empty)
+            {
+                hasEmptySlot = true;
+                HeldGuns[i].SetData(context.pickup.gunData);
+                break;
+            }
+        }
+
+        if(hasEmptySlot)
+        {
+            Destroy(context.pickup.gameObject);
+        }
+        else
+        {
+            GunData swapGun = HeldGuns[CurrentGun].GunData;
+            HeldGuns[CurrentGun].SetData(context.pickup.gunData);
+            context.pickup.gunData = swapGun;
+        }
+    }
+
+    public void OnPickupItem(PickupItemContext context)
+    {
+
     }
 }
