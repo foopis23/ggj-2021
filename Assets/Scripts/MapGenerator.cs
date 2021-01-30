@@ -90,6 +90,10 @@ public class MapGenerator : MonoBehaviour
                 {
                     GameObject wallObject = Instantiate(WallPrefab);
                     wallObject.transform.position = roomObject.transform.position + new Vector3(24, 2.5f, -24) + new Vector3(direction.x, 0, direction.y) * 24;
+                    if(direction == Vector2.up || direction == Vector2.down)
+                    {
+                        wallObject.transform.Rotate(Vector3.up, 90);
+                    }
                 }
             }
 
