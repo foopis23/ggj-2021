@@ -552,7 +552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7824608064262084826}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: 6}
+  m_LocalPosition: {x: -24, y: 10, z: -24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7824608062487382869}
@@ -622,6 +622,7 @@ MonoBehaviour:
   zombieAttackPrep1: {fileID: 1879120206}
   zombieAttackPrep2: {fileID: 1879120208}
   zombieAttackSmash: {fileID: 1879120207}
+  attackChargeSpeed: 6
 --- !u!95 &7824608064262084807
 Animator:
   serializedVersion: 3
