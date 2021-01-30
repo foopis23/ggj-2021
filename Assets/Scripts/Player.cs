@@ -87,7 +87,6 @@ public class Player : MonoBehaviour
                 interactable.Interact();
             }
         }
-
     }
 
     void OnGroundPound(GroundPoundContext ctx)
