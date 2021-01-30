@@ -58,6 +58,9 @@ public class ZombieAI : MonoBehaviour
     public AudioSource zombieAttackPrep2;
     public AudioSource zombieAttackSmash;
 
+    public float attackChargeSpeed = 6.0f;
+    private float normalSpeed;
+
     //state flags
     private bool isAgro;
     private bool hasLastPlayerPos;
@@ -87,7 +90,7 @@ public class ZombieAI : MonoBehaviour
         isAttackCoolingDown = false;
         navMeshAgent.updateRotation = false;
         invisible = false;
-
+        normalSpeed = navMeshAgent.speed;
         health = maxHealth;
 
         EventSystem.Current.RegisterEventListener<BulletHitCtx>(OnBulletHit);
@@ -115,7 +118,6 @@ public class ZombieAI : MonoBehaviour
                     if (navMeshAgent.remainingDistance <= attackDistance && !isAttackCoolingDown)
                     {
                         isAttacking = true;
-                        EventSystem.Current.CallbackAfter(OnAttackFinished, attackTimeMs);
                     }
                 }
 
@@ -220,6 +222,7 @@ public class ZombieAI : MonoBehaviour
 
     private void OnPrepAttack1()
     {
+        navMeshAgent.speed = attackChargeSpeed;
         zombieAttackPrep1.Play();
     }
 
@@ -230,12 +233,14 @@ public class ZombieAI : MonoBehaviour
 
     private void OnAttack()
     {
+        navMeshAgent.speed = 0;
         zombieAttackSmash.Play();
         EventSystem.Current.FireEvent(new GroundPoundContext(new Vector3(transform.position.x, transform.position.y, transform.position.z), groundPoundRadius, groundPoundDamage, groundPoundLinearFalloff));
     }
 
     private void OnAttackFinished()
     {
+        navMeshAgent.speed = normalSpeed;
         isAttackCoolingDown = true;
         isAttacking = false;
         EventSystem.Current.CallbackAfter(OnAttackCooldownFinished, attackCoolDownMs);

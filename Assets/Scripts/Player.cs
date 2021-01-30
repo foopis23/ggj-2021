@@ -43,7 +43,9 @@ public class Player : MonoBehaviour
 {
     // public variables
     public LayerMask InteractionLayerMask;
-    public GameObject CurrentGun;
+    public GunData[] AllGuns;
+    public Gun[] HeldGuns;
+    public int CurrentGun = 0;
     public int InteractionDistance = 2;
     public float maxHealth = 100;
 
@@ -63,17 +65,26 @@ public class Player : MonoBehaviour
         playerCamera = Camera.main;
         health = maxHealth;
         CharacterController = GetComponent<CharacterController>();
+
+        // Set starting guns
+        HeldGuns[0].SetData(AllGuns[0]);
+        HeldGuns[1].SetData(AllGuns[1]);
+        HeldGuns[2].SetData(AllGuns[2]);
     }
 
     // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
+        Gun heldGun = HeldGuns[CurrentGun];
 
         // shot
-        if(Input.GetButtonDown("Fire1"))
+        if((Input.GetButtonDown("Fire1") && !heldGun.GunData.Automatic) || (Input.GetButton("Fire1") && heldGun.GunData.Automatic))
         {
-            CurrentGun.GetComponent<Gun>().Fire();
+            if(!heldGun.Empty)
+            {
+                heldGun.Fire();
+            }
         }
 
         // check for interactables
