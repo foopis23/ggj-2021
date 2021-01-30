@@ -1258,7 +1258,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8773989149016782367}
   - component: {fileID: 1621395933441469087}
-  m_Layer: 0
+  - component: {fileID: 3030047031910442521}
+  m_Layer: 8
   m_Name: Terminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1302,6 +1303,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b48eeebcdd052b4a8b72e90c77c9415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &3030047031910442521
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614909567490048295}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1, y: 1.3, z: 1.1}
+  m_Center: {x: 0.5, y: 0.6, z: -0.5}
 --- !u!1 &5657092137163738736
 GameObject:
   m_ObjectHideFlags: 0

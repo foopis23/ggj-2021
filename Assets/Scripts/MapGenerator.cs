@@ -22,6 +22,7 @@ public class MapGenerator : MonoBehaviour
 
     // public variables
     public GameObject[] RoomPrefabs;
+    public GameObject StartingRoomPrefab;
     public GameObject WallPrefab;
     public GameObject TerminalPrefab;
     public int NumRooms = 10;
@@ -84,7 +85,15 @@ public class MapGenerator : MonoBehaviour
 
         foreach(Vector2 roomLocation in roomLocations)
         {
-            GameObject roomPrefab = RoomPrefabs[random.Next(RoomPrefabs.Length)];
+            GameObject roomPrefab;
+            if(roomLocation == Vector2.zero)
+            {
+                roomPrefab = StartingRoomPrefab;
+            }
+            else
+            {
+                roomPrefab = RoomPrefabs[random.Next(RoomPrefabs.Length)];
+            }
             GameObject roomObject = Instantiate(roomPrefab, parent.transform);
             Vector2 realPosition = roomLocation * ROOM_SIZE;
             roomObject.transform.position = levelLocation + new Vector3(realPosition.x, 0, realPosition.y);
