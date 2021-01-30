@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2963655271242147935}
   - component: {fileID: 2963655271242147920}
+  - component: {fileID: 8056982616779034129}
   - component: {fileID: 2963655271242147934}
   m_Layer: 0
   m_Name: Player
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2963655271242147921}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 24, y: 10, z: -24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -46,19 +47,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerView: {fileID: 0}
   playerViewYOffset: 0.6
-  xMouseSensitivity: 30
-  yMouseSensitivity: 30
+  xMouseSensitivity: 50
+  yMouseSensitivity: 50
   gravity: 20
   friction: 6
-  moveSpeed: 7
-  runAcceleration: 14
-  runDeacceleration: 10
+  moveSpeed: 12
+  runAcceleration: 10
+  runDeacceleration: 8
   airAcceleration: 2
-  airDecceleration: 2
-  airControl: 0.3
+  airDecceleration: 8
+  airControl: 0.5
   sideStrafeAcceleration: 50
   sideStrafeSpeed: 1
-  jumpSpeed: 8
+  jumpSpeed: 10
   holdJumpToBhop: 0
   style:
     m_Name: 
@@ -128,6 +129,24 @@ MonoBehaviour:
     m_StretchWidth: 1
     m_StretchHeight: 0
   fpsDisplayRate: 4
+--- !u!114 &8056982616779034129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2963655271242147921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b2f585f6da6284cbbbc679d6c08894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  CurrentGun: {fileID: 5434842649079939897, guid: 583b200b568815244b3bb1cb0f4679d5, type: 3}
+  InteractionDistance: 2
+  maxHealth: 100
 --- !u!143 &2963655271242147934
 CharacterController:
   m_ObjectHideFlags: 0

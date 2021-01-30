@@ -43,9 +43,9 @@ public class Player : MonoBehaviour
 {
     // public variables
     public LayerMask InteractionLayerMask;
-    public GameObject HitParticle;
+    public GameObject CurrentGun;
     public int InteractionDistance = 2;
-    public float maxHealth;
+    public float maxHealth = 100;
 
     // private variables
     private Camera playerCamera;
@@ -73,13 +73,7 @@ public class Player : MonoBehaviour
         // shot
         if(Input.GetButtonDown("Fire1"))
         {
-            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 200))
-            {
-                EventSystem.Current.FireEvent(new BulletHitCtx(hit, 10));
-            }
-            GameObject particleObject = Instantiate(HitParticle, hit.point, Quaternion.LookRotation(hit.normal));
-            ParticleSystem particleSystem = particleObject.GetComponent<ParticleSystem>();
-            Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
+            CurrentGun.GetComponent<Gun>().Fire();
         }
 
         // check for interactables
@@ -93,7 +87,6 @@ public class Player : MonoBehaviour
                 interactable.Interact();
             }
         }
-
     }
 
     void OnGroundPound(GroundPoundContext ctx)
