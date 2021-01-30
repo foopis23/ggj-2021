@@ -5,6 +5,9 @@ using CallbackEvents;
 
 public class Gun : MonoBehaviour
 {
+    // public variables;
+    public AudioSource shootSoundy;
+
     // private variables;
     private float lastFire;
     private Camera playerCamera;
@@ -36,6 +39,7 @@ public class Gun : MonoBehaviour
         if(Time.time > lastFire + GunData.FireCooldown)
         {
             lastFire = Time.time;
+            shootSoundy.Play();
             for(int i = 0; i < GunData.BulletsPerShot; i++)
             {
                 RaycastHit hit;

@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.AI;
 using CallbackEvents;
 
-public class GroundPoundContext : EventContext{
+public class GroundPoundContext : EventContext
+{
     public Vector3 location;
     public float radius;
     public float damage;
     public bool linearFalloff;
 
-    public GroundPoundContext(Vector3 location, float radius, float damage, bool linearFalloff) {
+    public GroundPoundContext(Vector3 location, float radius, float damage, bool linearFalloff)
+    {
         this.location = location;
         this.radius = radius;
         this.damage = damage;
@@ -46,12 +48,15 @@ public class ZombieAI : MonoBehaviour
     public Material hurtMaterial;
     public Material normalMaterial;
 
-
     public float maxHealth;
 
     private Vector3 lastSeenPlayerPos;
     private float lastPlayerSeenCheck;
     private float health;
+
+    public AudioSource zombieAttackPrep1;
+    public AudioSource zombieAttackPrep2;
+    public AudioSource zombieAttackSmash;
 
     //state flags
     private bool isAgro;
@@ -89,7 +94,7 @@ public class ZombieAI : MonoBehaviour
     }
 
     void Update()
-    {   
+    {
         //set animation set
         animator.SetBool("isAttacking", isAttacking);
         animator.SetBool("isAgro", isAgro);
@@ -120,7 +125,8 @@ public class ZombieAI : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
                 // transform.LookAt(target.position, Vector3.up);
 
-            }else
+            }
+            else
             {
                 //trigger a countdown for when to stop looking for the player
                 if (didSeePlayer)
@@ -173,14 +179,6 @@ public class ZombieAI : MonoBehaviour
             hit.collider.gameObject.tag == "Player";
     }
 
-    void OnAttackFinished()
-    {
-        isAttackCoolingDown = true;
-        isAttacking = false;
-        EventSystem.Current.CallbackAfter(OnAttackCooldownFinished, attackCoolDownMs);
-        EventSystem.Current.FireEvent(new GroundPoundContext(new Vector3(transform.position.x, transform.position.y, transform.position.z), groundPoundRadius, groundPoundDamage, groundPoundLinearFalloff));
-    }
-
     void OnAttackCooldownFinished()
     {
         isAttackCoolingDown = false;
@@ -197,12 +195,13 @@ public class ZombieAI : MonoBehaviour
         {
             invisible = true;
             health -= damage;
-            foreach(MeshRenderer mesh in hurtMesh)
+            foreach (MeshRenderer mesh in hurtMesh)
             {
                 mesh.material = hurtMaterial;
             }
-            EventSystem.Current.CallbackAfter(OnDamgeFinshed, 400);
         }
+
+        EventSystem.Current.CallbackAfter(OnDamgeFinshed, 400);
     }
 
     private void OnDamgeFinshed()
@@ -219,9 +218,33 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
+    private void OnPrepAttack1()
+    {
+        zombieAttackPrep1.Play();
+    }
+
+    private void OnPrepAttack2()
+    {
+        zombieAttackPrep2.Play();
+    }
+
+    private void OnAttack()
+    {
+        zombieAttackSmash.Play();
+        EventSystem.Current.FireEvent(new GroundPoundContext(new Vector3(transform.position.x, transform.position.y, transform.position.z), groundPoundRadius, groundPoundDamage, groundPoundLinearFalloff));
+    }
+
+    private void OnAttackFinished()
+    {
+        isAttackCoolingDown = true;
+        isAttacking = false;
+        EventSystem.Current.CallbackAfter(OnAttackCooldownFinished, attackCoolDownMs);
+    }
+
     void OnBulletHit(BulletHitCtx ctx)
     {
-        if (gameObject.Equals(ctx.hit.collider.gameObject)) {
+        if (gameObject.Equals(ctx.hit.collider.gameObject))
+        {
             takeDamage(ctx.damage);
         }
     }

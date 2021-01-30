@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7333613850063010036}
   - component: {fileID: 7343797010228798194}
   - component: {fileID: 342832076468597153}
+  - component: {fileID: 8450571520765977896}
   m_Layer: 0
   m_Name: ASCII Camera
   m_TagString: MainCamera
@@ -125,3 +126,11 @@ MonoBehaviour:
   height: 4
   compassX: 114
   compassY: 1
+--- !u!81 &8450571520765977896
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240315361061159904}
+  m_Enabled: 1
