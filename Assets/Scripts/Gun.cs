@@ -21,11 +21,20 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Gun Start Function");
+        lastFire = 0f;
         playerCamera = Camera.main;
+        Debug.Log(lastFire);
+    }
+
+    void Update()
+    {
+
     }
 
     public void Fire()
     {
+        Debug.Log(lastFire);
         if(Time.time > lastFire + FireCooldown)
         {
             lastFire = Time.time;
@@ -35,7 +44,7 @@ public class Gun : MonoBehaviour
                 bool success = Physics.Raycast(playerCamera.transform.position, Quaternion.Euler(Random.value * Spread - (Spread * 0.5f), Random.value * Spread - (Spread * 0.5f), Random.value * Spread - (Spread * 0.5f)) * playerCamera.transform.forward, out hit, BulletRange);
                 if(success)
                 {
-                    EventSystem.Current.FireEvent(new BulletHitCtx(hit, 10));
+                    EventSystem.Current.FireEvent(new BulletHitCtx(hit, BulletDamage));
                     GameObject particleObject = Instantiate(HitParticle, hit.point, Quaternion.LookRotation(hit.normal));
                     ParticleSystem particleSystem = particleObject.GetComponent<ParticleSystem>();
                     Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
