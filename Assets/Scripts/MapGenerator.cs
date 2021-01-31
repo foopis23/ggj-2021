@@ -22,6 +22,7 @@ public class MapGenerator : MonoBehaviour
 
     // public variables
     public GameObject[] WeaponPickupPrefabs;
+    public GameObject[] EnemyPrefabs;
     public GameObject[] RoomPrefabs;
     public GameObject StartingRoomPrefab;
     public GameObject WallPrefab;
@@ -142,6 +143,13 @@ public class MapGenerator : MonoBehaviour
                 GameObject weaponPickupObject = Instantiate(WeaponPickupPrefabs[random.Next(WeaponPickupPrefabs.Length)]);
                 GameObject weaponPlacementObject = room.TerminalLocations[random.Next(room.TerminalLocations.Length)];
                 weaponPickupObject.transform.position = weaponPlacementObject.transform.position - weaponPickupObject.GetComponent<SphereCollider>().center + Vector3.up;
+            }
+
+            if(roomLocation != Vector2.zero)
+            {
+                GameObject EnemyObject = Instantiate(EnemyPrefabs[random.Next(EnemyPrefabs.Length)]);
+                GameObject EnemyPlacementObject = room.SpawnLocations[random.Next(room.SpawnLocations.Length)];
+                EnemyObject.transform.position = EnemyPlacementObject.transform.position;
             }
         }
 
