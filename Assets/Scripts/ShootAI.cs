@@ -4,23 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using CallbackEvents;
 
-public class GroundPoundContext : EventContext
-{
-    public Vector3 location;
-    public float radius;
-    public float damage;
-    public bool linearFalloff;
-
-    public GroundPoundContext(Vector3 location, float radius, float damage, bool linearFalloff)
-    {
-        this.location = location;
-        this.radius = radius;
-        this.damage = damage;
-        this.linearFalloff = linearFalloff;
-    }
-}
-
-public class ZombieAI : MonoBehaviour
+public class ShootAI : MonoBehaviour
 {
     //components
     public NavMeshAgent navMeshAgent;
@@ -37,12 +21,14 @@ public class ZombieAI : MonoBehaviour
     public float rotationDamping; //controls ai rotation speed
 
     //attack settings
-    public float attackDistance; //distance the player can attack from
-    public float groundPoundRadius; //the radius at which a ground pound attack lands a hit
-    public float groundPoundDamage; //the amount of damage the ground pound attack will do
-    public bool groundPoundLinearFalloff; //wether or not to drop the damage linearly based off the distance from the player
+    public float minStrafeDistance;
+    public float maxStrafeDistance;
+    public float maxProjectileDistance;
+    public float projectileDamage;
+    public float projectileSpeed;
     public bool invisible; //if the player is invisible this frame
     public float attackChargeSpeed = 6.0f;
+    public GameObject projectilePrefab;
 
     //damage settings
     public MeshRenderer[] hurtMesh; //meshs to apply the hurt material to on damaged
@@ -53,9 +39,8 @@ public class ZombieAI : MonoBehaviour
     public float maxHealth;
 
     //audio sources for each sound effect
-    public AudioSource zombieAttackPrep1;
-    public AudioSource zombieAttackPrep2;
-    public AudioSource zombieAttackSmash;
+    public AudioSource attackPrep1Sound;
+    public AudioSource attackSound;
 
     //Navagiation Properties
     private float lastSawPlayerTime;
@@ -70,6 +55,9 @@ public class ZombieAI : MonoBehaviour
 
     //state flags
     private bool isAgro;
+    private bool isStrafing;
+    private bool movingCloser;
+    private bool movingAway;
     private bool hasLastPlayerPos;
     private bool didSeePlayer;
     private bool canSeePlayer;
@@ -87,18 +75,64 @@ public class ZombieAI : MonoBehaviour
     .##.....##.####....####.##....##....##....########.##....##....##.....######.
     */
 
-    void AttackPlayer()
+    // void AttackPlayer()
+    // {
+    //     lastSeenPlayerPos = target.position;
+    //     lastSawPlayerTime = Time.time;
+    //     hasLastPlayerPos = true;
+    //     navMeshAgent.SetDestination(target.position);
+
+    //     Vector3 lookPos = target.position - transform.position;
+    //     lookPos.y = 0;
+    //     Quaternion rotation = Quaternion.LookRotation(lookPos);
+    //     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
+    //     // transform.LookAt(target.position, Vector3.up);
+    // }
+
+    void Strafe()
     {
-        lastSeenPlayerPos = target.position;
-        lastSawPlayerTime = Time.time;
-        hasLastPlayerPos = true;
-        navMeshAgent.SetDestination(target.position);
+        navMeshAgent.SetDestination(transform.position);
+
+        if (!isAttacking && !isAttackCoolingDown)
+        {
+            isAttacking = true;
+        }
+
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+
+        if (distance < minStrafeDistance)
+        {
+            movingCloser = false;
+            movingAway = true;
+            isStrafing = false;
+        }
+        else if (distance > maxStrafeDistance)
+        {
+            movingCloser = true;
+            movingAway = false;
+            isStrafing = false;
+        }
+        else if (Mathf.Abs(maxStrafeDistance - distance) < 0.3)
+        {
+            movingCloser = false;
+            movingAway = false;
+            isStrafing = true;
+        }
+        else if (distance > minStrafeDistance && distance < maxStrafeDistance)
+        {
+            float ran = Random.Range(0, 1);
+            if (ran < 0.6)
+            {
+                movingCloser = false;
+                movingAway = false;
+                isStrafing = true;
+            }
+        }
 
         Vector3 lookPos = target.position - transform.position;
         lookPos.y = 0;
         Quaternion rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
-        // transform.LookAt(target.position, Vector3.up);
     }
 
     void FollowPlayer()
@@ -108,17 +142,91 @@ public class ZombieAI : MonoBehaviour
         hasLastPlayerPos = true;
         navMeshAgent.SetDestination(target.position);
 
-        //check if player is close enough to attack
-        if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance && !isAttackCoolingDown)
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+
+        if (distance < minStrafeDistance)
         {
-            isAttacking = true;
+            movingCloser = false;
+            movingAway = true;
+            isStrafing = false;
+        }
+        else if (distance > maxStrafeDistance)
+        {
+            movingCloser = true;
+            movingAway = false;
+            isStrafing = false;
+        }
+        else if (Mathf.Abs(maxStrafeDistance - distance) < 0.3)
+        {
+            movingCloser = false;
+            movingAway = false;
+            isStrafing = true;
+        }
+        else if (distance > minStrafeDistance && distance < maxStrafeDistance)
+        {
+            float ran = Random.Range(0, 1);
+            if (ran < 0.6)
+            {
+                movingCloser = false;
+                movingAway = false;
+                isStrafing = true;
+            }
         }
 
         Vector3 lookPos = target.position - transform.position;
         lookPos.y = 0;
         Quaternion rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
-        // transform.LookAt(target.position, Vector3.up);
+    }
+
+    void MoveAwayFromPlayer()
+    {
+        if (!isAttacking && !isAttackCoolingDown)
+        {
+            isAttacking = true;
+        }
+
+        lastSeenPlayerPos = target.position;
+        lastSawPlayerTime = Time.time;
+        hasLastPlayerPos = true;
+        Vector3 hello = transform.position - transform.forward;
+        navMeshAgent.SetDestination(hello);
+
+        Vector3 lookPos = target.position - transform.position;
+        lookPos.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
+
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+
+        if (distance < minStrafeDistance)
+        {
+            movingCloser = false;
+            movingAway = true;
+            isStrafing = false;
+        }
+        else if (distance > maxStrafeDistance)
+        {
+            movingCloser = true;
+            movingAway = false;
+            isStrafing = false;
+        }
+        else if (Mathf.Abs(maxStrafeDistance - distance) < 0.3)
+        {
+            movingCloser = false;
+            movingAway = false;
+            isStrafing = true;
+        }
+        else if (distance > minStrafeDistance && distance < maxStrafeDistance)
+        {
+            float ran = Random.Range(0, 1);
+            if (ran < 0.6)
+            {
+                movingCloser = false;
+                movingAway = false;
+                isStrafing = true;
+            }
+        }
     }
 
     void LookForPlayer()
@@ -193,20 +301,29 @@ public class ZombieAI : MonoBehaviour
 
     void AgroUpdate()
     {
+        if (!isStrafing && !movingCloser && !movingAway)
+        {
+            movingCloser = true;
+        }
+
         if (canSeePlayer)
         {
-            if (!isAttacking)
+            if (isStrafing)
+            {
+                Strafe();
+            }
+            else if (movingCloser)
             {
                 FollowPlayer();
             }
-            else
+            else if (movingAway)
             {
-                AttackPlayer();
+                MoveAwayFromPlayer();
             }
         }
         else
         {
-            FollowPlayer();
+            LookForPlayer();
         }
     }
 
@@ -269,29 +386,29 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
-    public void OnPrepAttack1()
+    public void OnPrepAttack()
     {
-        navMeshAgent.speed = attackChargeSpeed;
-        zombieAttackPrep1.Play();
-    }
-
-    public void OnPrepAttack2()
-    {
-        zombieAttackPrep2.Play();
+        attackPrep1Sound.Play();
+        //TODO: Player sound
     }
 
     public void OnAttack()
     {
-        navMeshAgent.speed = 0;
-        zombieAttackSmash.Play();
-        EventSystem.Current.FireEvent(new GroundPoundContext(new Vector3(transform.position.x, transform.position.y, transform.position.z), groundPoundRadius, groundPoundDamage, groundPoundLinearFalloff));
+        attackSound.Play();
+        //TODO: Shoot your goo my dood
+
+        GameObject ob = Instantiate(projectilePrefab);
+        ob.transform.position = transform.position + transform.forward + (transform.up * 1.35f);
+        Projectile projectile = ob.GetComponent<Projectile>();
+        projectile.velocity = transform.forward * projectileSpeed;
+        projectile.damage = projectileDamage;
+        isAttackCoolingDown = true;
+        isAttacking = false;
     }
 
     public void OnAttackFinished()
     {
-        navMeshAgent.speed = normalSpeed;
         isAttacking = false;
-        isAttackCoolingDown = true;
     }
 
     public void OnBulletHit(BulletHitCtx ctx)
@@ -330,16 +447,16 @@ public class ZombieAI : MonoBehaviour
 
     private void TakeDamage(float damage)
     {
-        if (!invisible)
-        {
-            invisible = false;
-            health -= damage;
-            foreach (MeshRenderer mesh in hurtMesh)
-            {
-                mesh.material = hurtMaterial;
-            }
-        }
+        // if (!invisible)
+        // {
+        //     invisible = false;
+        //     health -= damage;
+        //     foreach (MeshRenderer mesh in hurtMesh)
+        //     {
+        //         mesh.material = hurtMaterial;
+        //     }
+        // }
 
-        EventSystem.Current.CallbackAfter(OnDamgeFinshed, 400);
+        // EventSystem.Current.CallbackAfter(OnDamgeFinshed, 400);
     }
 }

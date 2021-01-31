@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
         EventSystem.Current.RegisterEventListener<GotoPreviousLevelContext>(OnGotoPreviousLevel);
         EventSystem.Current.RegisterEventListener<PickupWeaponContext>(OnPickupWeapon);
         EventSystem.Current.RegisterEventListener<PickupItemContext>(OnPickupItem);
+        EventSystem.Current.RegisterEventListener<ProjectileHitContext>(OnProjectileHit);
         playerCamera = Camera.main;
         health = maxHealth;
         jamacIsDead = false;
@@ -266,5 +267,11 @@ public class Player : MonoBehaviour
     public void OnPickupItem(PickupItemContext context)
     {
         documents++;
+    }
+
+    public void OnProjectileHit(ProjectileHitContext ctx) {
+        if (ctx.hit.gameObject.tag == "Player") {
+            TakeDamage(ctx.damage);
+        }
     }
 }
