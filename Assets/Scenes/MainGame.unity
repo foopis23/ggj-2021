@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e2db423ac6bdaea4f977a016b66c75be, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -218,9 +218,9 @@ MonoBehaviour:
   - {fileID: 3018984909736841151, guid: f77cb2bd1f4038545a0caede5260a9aa, type: 3}
   - {fileID: 4071819151367243567, guid: 42f824eb1221d954ba40d9e7a2bc3184, type: 3}
   - {fileID: 4328032582067424495, guid: 55f98e1c6af73b048a7abbdf01019932, type: 3}
-  - {fileID: 522489428994746690, guid: 73bc4fa263a5bb0439e18cb827a5f81f, type: 3}
+  - {fileID: 671660222913269814, guid: bd6c0506b7f2460449bca00e2eccae30, type: 3}
   - {fileID: 5299364872918998340, guid: da74a7609504b394a8ed517535f40a05, type: 3}
-  StartingRoomPrefab: {fileID: 671660222913269814, guid: bd6c0506b7f2460449bca00e2eccae30, type: 3}
+  StartingRoomPrefab: {fileID: 522489428994746690, guid: 73bc4fa263a5bb0439e18cb827a5f81f, type: 3}
   WallPrefab: {fileID: 8742071953676694292, guid: 68c09a82c36553d4b9670d613a9cb8bd, type: 3}
   TerminalPrefab: {fileID: 5614909567490048295, guid: c1fc4b67af947cb479bcdc7ca5d67323, type: 3}
   NumRooms: 20
