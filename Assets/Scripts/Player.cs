@@ -55,6 +55,8 @@ public class Player : MonoBehaviour
     public float maxHealth = 100;
     public Image fadeOverlay;
     public float fadeDamp;
+    public bool GodMode = false;
+    public bool Invisible = false;
 
     // private variables
     private Camera playerCamera;
@@ -202,13 +204,16 @@ public class Player : MonoBehaviour
 
     private void TakeDamage(float damage)
     {
-        health -= damage;
-
-        EventSystem.Current.FireEvent(new PlayerHealthChangedCtx(damage, health, this));
-
-        if (health <= 0)
+        if(!GodMode)
         {
-            jamacIsDead = true;
+            health -= damage;
+
+            EventSystem.Current.FireEvent(new PlayerHealthChangedCtx(damage, health, this));
+
+            if (health <= 0)
+            {
+                jamacIsDead = true;
+            }
         }
     }
 

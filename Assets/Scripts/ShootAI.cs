@@ -452,7 +452,7 @@ public class ShootAI : MonoBehaviour
         return Mathf.Abs(Vector3.Angle(transform.position, target.position)) <= (angle / 2) &&
             Vector3.Distance(transform.position, target.position) <= distance &&
             Physics.Raycast(transform.position, direction, out hit) &&
-            hit.collider.gameObject.tag == "Player";
+            hit.collider.gameObject.tag == "Player" && !hit.collider.gameObject.GetComponent<Player>().Invisible;
     }
 
     private void TakeDamage(float damage)
