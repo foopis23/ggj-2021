@@ -103,7 +103,20 @@ public class Player : MonoBehaviour
         }
 
         // switching weapons
-        if(Input.GetButtonDown("Select Weapon1"))
+        if(Input.GetButtonDown("Swap Weapon"))
+        {
+            if(CurrentGun != 0)
+            {
+                CurrentGun = 0;
+            }
+            else
+            {
+                CurrentGun = 1;
+            }
+
+            SwitchWeapons(heldGun, HeldGuns[CurrentGun]);
+        }
+        else if(Input.GetButtonDown("Select Weapon1"))
         {
             if(CurrentGun != 0)
             {
@@ -112,7 +125,7 @@ public class Player : MonoBehaviour
 
             CurrentGun = 0;
         }
-        if(Input.GetButtonDown("Select Weapon2"))
+        else if(Input.GetButtonDown("Select Weapon2"))
         {
             if(CurrentGun != 1)
             {

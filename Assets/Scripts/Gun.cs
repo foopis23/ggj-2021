@@ -5,12 +5,16 @@ using CallbackEvents;
 
 public class Gun : MonoBehaviour
 {
+    private const float PREFIRE_WINDOW = 0.3f;
+
     // public variables;
     public LayerMask ShootLayerMask;
     public AudioSource shootSoundy;
 
     // private variables;
     private float lastFire;
+    private bool preFire;
+    private bool doThing;
     private Camera playerCamera;
     private Animator animator;
 
@@ -25,9 +29,17 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
+        if(doThing)
+        {
+            doThing = false;
+            Fire();
+        }
+
         if(!Empty && Time.time > lastFire + GunData.FireCooldown)
         {
             animator.SetBool("isFiring", false);
+            doThing = preFire;
+            preFire = false;
         }
     }
 
@@ -51,6 +63,8 @@ public class Gun : MonoBehaviour
         if(Time.time > lastFire + GunData.FireCooldown)
         {
             lastFire = Time.time;
+            shootSoundy.volume = GunData.Model == "Assault" ? 0.5f : 1;
+            shootSoundy.pitch = 1 + Random.value * 0.05f - 0.025f;
             shootSoundy.Play();
             animator.SetBool("isFiring", true);
             for(int i = 0; i < GunData.BulletsPerShot; i++)
@@ -71,6 +85,10 @@ public class Gun : MonoBehaviour
                     Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
                 }
             }
+        }
+        else if(Time.time > lastFire + (GunData.FireCooldown * (1 - PREFIRE_WINDOW)))
+        {
+            preFire = true;
         }
     }
 }
