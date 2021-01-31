@@ -73,6 +73,7 @@ public class MapGenerator : MonoBehaviour
         List<Vector2> terminalRoomLocations = new List<Vector2>();
         List<Vector2> weaponRoomLocations = new List<Vector2>();
         List<Vector2> documentRoomLocations = new List<Vector2>();
+        List<GameObject> spawnedEnemies = new List<GameObject>();
         roomLocations.Add(Vector2.zero);
 
         while(roomLocations.Count < NumRooms)
@@ -180,12 +181,20 @@ public class MapGenerator : MonoBehaviour
                     {
                         AnotherEnemyPlacementObject = room.SpawnLocations[random.Next(room.SpawnLocations.Length)];
                     } while(AnotherEnemyPlacementObject == EnemyPlacementObject);
-                    AnotherEnemyObject.transform.position = EnemyPlacementObject.transform.position;
+                    AnotherEnemyObject.transform.position = AnotherEnemyPlacementObject.transform.position;
+                    spawnedEnemies.Add(AnotherEnemyObject);
                 }
+
+                spawnedEnemies.Add(EnemyObject);
             }
         }
 
         parent.GetComponent<NavMeshSurface>().BuildNavMesh();
+        foreach(GameObject enemy in spawnedEnemies)
+        {
+            enemy.GetComponent<NavMeshAgent>().enabled = true;
+        }
+
         Levels.Add(levelLocation, level);
     }
  
@@ -210,6 +219,6 @@ public class MapGenerator : MonoBehaviour
             GenerateLevel(context.location);
         }
 
-        EventSystem.Current.FireEvent(new GotoNextLevelContext(context.location + new Vector3(ROOM_SIZE / 2, 10, -ROOM_SIZE / 2)));
+        EventSystem.Current.FireEvent(new GotoNextLevelContext(context.location + new Vector3(ROOM_SIZE / 2, 3, -ROOM_SIZE / 2)));
     }
 }

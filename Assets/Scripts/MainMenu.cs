@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : TerminalController
 {
+    public TutorialMessage TutorialScreen;
     public Image fadeBackground;
     public float opacityDamp;
     private float opacity;
@@ -69,9 +69,9 @@ public class MainMenu : TerminalController
             if (displayedMenu == 0)
             {
                 setCursorPos(15, 9);
-                write("IT Service 2154");
+                write("ITRecovery Employee Hub Terminal");
                 setCursorPos(15, 10);
-                write("Find our customer\'s Lost Documents and Return them");
+                write("Please select an option:");
                 setCursorPos(15, 12);
                 write("Enter Cyberspace\n");
                 setCursorPos(15, 13);
@@ -109,7 +109,7 @@ public class MainMenu : TerminalController
                 setCursorPos(15, 9);
                 write("ITRecovery Cyberspace Settings Recovery Unit: 177");
                 setCursorPos(15, 10);
-                write("THIS SCREEN IS CURRENTLY NOT OPPERATIONAL AND IS ONLY HERE TO MAKE");
+                write("THIS SCREEN IS CURRENTLY NOT OPERATIONAL AND IS ONLY HERE TO MAKE");
                 setCursorPos(15, 11);
                 write("ITRECOVERY EMPLOYEES FEEL AS IF WE CARE ABOUT THEM");
                 setCursorPos(15, 12);
@@ -143,17 +143,17 @@ public class MainMenu : TerminalController
                 drawMenuCursor(0);
             }
 
-            if (Input.GetKeyDown("s"))
+            if (Input.GetKeyDown("s") || Input.GetKeyDown("down"))
             {
                 drawMenuCursor(1);
             }
 
-            if (Input.GetKeyDown("w"))
+            if (Input.GetKeyDown("w") || Input.GetKeyDown("up"))
             {
                 drawMenuCursor(-1);
             }
 
-            if (Input.GetKeyDown("return"))
+            if (Input.GetKeyDown("return") || Input.GetKeyDown("space"))
             {
                 if (displayedMenu == 3)
                 {
@@ -163,9 +163,9 @@ public class MainMenu : TerminalController
                         setCursorPos(1, 1);
                         write("This yellow terminal will send you one layer deeper into CYBERSPACE! The deeper you can go into cyberspace, the more");
                         setCursorPos(1, 2);
-                        write("documents YOU can find. The more documents you can find, the more documents we can return to our customers.");
+                        write("documents YOU can find. The more documents you can find, the more documents WE can return to our customers.");
                         setCursorPos(1, 3);
-                        write("This means more money. Get out there");
+                        write("This means more money for us. Maybe you too (don't count on it). Get to it!");
                     }
                     if (menuIndex == 1)
                     {
@@ -181,9 +181,9 @@ public class MainMenu : TerminalController
                         setCursorPos(1, 1);
                         write("This is where the money is baby! Find these sweet white rectangles hidden in CYBERSPACE. Each one increases points");
                         setCursorPos(1, 2);
-                        write("which in turn increases profits. WARNING: The more you hold, the more you are noticed.");
+                        write("which in turn increases profits. WARNING: The more you collect, the more you will be targeted by the hackers.");
                         setCursorPos(1, 4);
-                        write("ITRecovery is not responsible for any Accidental Loss of Life in the Field");
+                        write("By reading this sentence you agree that ITRecovery is not responsible for any Accidental Loss of Life in the Field.");
                     }
                     if (menuIndex == 3)
                     {
@@ -257,7 +257,8 @@ public class MainMenu : TerminalController
                 {
                     if (menuIndex == 0)
                     {
-                        SceneManager.LoadScene(1);
+                        TutorialScreen.Enabled = true;
+                        gameObject.SetActive(false);
                     }
                     if (menuIndex == 1)
                     {

@@ -79,6 +79,7 @@ public class ConsoleElement
             {
                 controller.write(text);
                 wrote = true;
+                lastSlowType = Time.time;
             }
             else if (Time.time - lastSlowType >= waitAfterTime)
             {
