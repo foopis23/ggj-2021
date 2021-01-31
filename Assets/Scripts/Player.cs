@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     // private variables
     private Camera playerCamera;
     private float health;
+    private Stack<Vector3> levelStack;
 
     // automatic properties
     public CharacterController CharacterController { get; set; }
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour
         playerCamera = Camera.main;
         health = maxHealth;
         CharacterController = GetComponent<CharacterController>();
+        levelStack = new Stack<Vector3>();
 
         foreach(Gun gun in HeldGuns)
         {
@@ -181,6 +183,7 @@ public class Player : MonoBehaviour
 
     public void OnGotoNextLevel(GotoNextLevelContext context)
     {
+        levelStack.Push(transform.position);
         CharacterController.enabled = false;
         transform.position = context.location;
         CharacterController.enabled = true;
