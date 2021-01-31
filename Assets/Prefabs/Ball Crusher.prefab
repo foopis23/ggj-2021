@@ -570,7 +570,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 10
+  m_Speed: 12
   m_Acceleration: 10000
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -597,16 +597,16 @@ MonoBehaviour:
   navMeshAgent: {fileID: 7824608064262084804}
   animator: {fileID: 7824608064262084807}
   target: {fileID: 0}
-  viewDistance: 20
+  viewDistance: 40
   agroViewDistance: 20
   viewConeAngle: 90
   agroViewConeAngle: 360
   lookForLostPlayerMs: 5000
-  timeBetweenSeePlayerChecks: 0.5
+  timeBetweenSeePlayerChecks: 0.03
   rotationDamping: 5
-  attackDistance: 3
-  groundPoundRadius: 5
-  groundPoundDamage: 10
+  attackDistance: 4
+  groundPoundRadius: 6
+  groundPoundDamage: 40
   groundPoundLinearFalloff: 0
   invisible: 0
   attackChargeSpeed: 6

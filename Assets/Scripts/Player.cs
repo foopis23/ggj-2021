@@ -198,7 +198,7 @@ public class Player : MonoBehaviour
 
         EventSystem.Current.FireEvent(new PlayerHealthChangedCtx(damage, health, this));
 
-        if (health == 0)
+        if (health <= 0)
         {
             jamacIsDead = true;
         }
