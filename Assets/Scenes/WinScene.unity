@@ -158,15 +158,15 @@ MonoBehaviour:
   terminalHeight: 60
   GUI: {fileID: 2134631157}
   ConsoleElements:
-  - text: You made it back alive, nice job.\n
+  - text: \n
     isSlowType: 0
     slowTypeDeltaTime: 0
-    waitAfterTime: 0.5
-  - text: Now get back in there and get more documents.\n
+    waitAfterTime: 3
+  - text: Now get in there and get back to work.\n\n
     isSlowType: 0
     slowTypeDeltaTime: 0
     waitAfterTime: 1.5
-  - text: \nPress ENTER to continue...
+  - text: Press ENTER to continue...
     isSlowType: 0
     slowTypeDeltaTime: 0
     waitAfterTime: 0

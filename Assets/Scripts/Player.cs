@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
     public float maxHealth = 100;
     public Image fadeOverlay;
     public float fadeDamp;
+    public GameObject ScoreHolder;
     public bool GodMode = false;
     public bool Invisible = false;
 
@@ -236,6 +237,8 @@ public class Player : MonoBehaviour
             CharacterController.enabled = true;
         } else
         {
+            ScoreHolder.GetComponent<ScoreHolder>().Score = documents;
+            DontDestroyOnLoad(ScoreHolder);
             SceneManager.LoadScene(4);
         }
     }
