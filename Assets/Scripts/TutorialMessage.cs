@@ -20,7 +20,7 @@ public class TutorialMessage : TerminalController
         {
             Run();
 
-            if (consoleElements.Count < 1 || Input.GetKeyDown("enter") || Input.GetKeyDown("space"))
+            if (consoleElements.Count < 1 || Input.GetKeyDown("return") || Input.GetKeyDown("space"))
             {
                 SceneManager.LoadScene(1);
             }
