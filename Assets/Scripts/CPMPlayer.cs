@@ -40,6 +40,7 @@ struct Cmd
 
 public class CPMPlayer : MonoBehaviour
 {
+    public Player player;
     public Transform playerView;     // Camera
     public float playerViewYOffset = 0.6f; // The height at which the camera is bound to
     public float xMouseSensitivity = 50.0f;
@@ -115,6 +116,8 @@ public class CPMPlayer : MonoBehaviour
 
     private void Update()
     {
+        if (player.IsDead) return;
+        
         // Do FPS calculation
         frameCount++;
         dt += Time.deltaTime;

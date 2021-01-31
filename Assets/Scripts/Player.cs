@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CallbackEvents;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthChangedCtx : EventContext
 {
@@ -51,6 +53,8 @@ public class Player : MonoBehaviour
     public int CurrentGun = 0;
     public int InteractionDistance = 2;
     public float maxHealth = 100;
+    public Image fadeOverlay;
+    public float fadeDamp;
 
     // private variables
     private Camera playerCamera;
@@ -58,6 +62,13 @@ public class Player : MonoBehaviour
     private int documents;
     private Stack<Vector3> levelPositionStack;
     private Stack<Quaternion> levelRotationStack;
+    private bool jamacIsDead;
+    public bool IsDead {
+        get {
+            return jamacIsDead;
+        }
+    } 
+    private float opacity = 0.0f;
 
     // automatic properties
     public CharacterController CharacterController { get; set; }
@@ -73,6 +84,7 @@ public class Player : MonoBehaviour
         EventSystem.Current.RegisterEventListener<PickupItemContext>(OnPickupItem);
         playerCamera = Camera.main;
         health = maxHealth;
+        jamacIsDead = false;
         CharacterController = GetComponent<CharacterController>();
         levelPositionStack = new Stack<Vector3>();
         levelRotationStack = new Stack<Quaternion>();
@@ -90,6 +102,17 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (jamacIsDead) {
+            //! thank fuickikinbg gOD
+            opacity = Mathf.Lerp(opacity, 1.0f, fadeDamp * Time.deltaTime);
+            fadeOverlay.color = new Color(fadeOverlay.color.r, fadeOverlay.color.g, fadeOverlay.color.b, opacity);
+
+            if (opacity > 0.99) {
+                SceneManager.LoadScene(2);
+            }
+            return;
+        }
+
         RaycastHit hit;
         Gun heldGun = HeldGuns[CurrentGun];
 
@@ -182,9 +205,9 @@ public class Player : MonoBehaviour
 
         EventSystem.Current.FireEvent(new PlayerHealthChangedCtx(damage, health, this));
 
-        if (health == 0)
+        if (health <= 0)
         {
-            //perish
+            jamacIsDead = true;
         }
     }
 
