@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     // private variables
     private Camera playerCamera;
     private float health;
-    private int documents;
+    private int documents; // DOCUMENT COUNT INITILIZED HERE ERIC <----
     private Stack<Vector3> levelPositionStack;
     private Stack<Quaternion> levelRotationStack;
     private bool jamacIsDead;
@@ -228,6 +228,9 @@ public class Player : MonoBehaviour
             transform.position = levelPositionStack.Pop();
             transform.rotation = levelRotationStack.Pop();
             CharacterController.enabled = true;
+        } else
+        {
+            SceneManager.LoadScene(4);
         }
     }
 
