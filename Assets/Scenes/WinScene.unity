@@ -161,11 +161,15 @@ MonoBehaviour:
   - text: You made it back alive, nice job.\n
     isSlowType: 0
     slowTypeDeltaTime: 0
-    waitAfterTime: 1
-  - text: Now get back in there and get more documents.
+    waitAfterTime: 0.5
+  - text: Now get back in there and get more documents.\n
     isSlowType: 0
     slowTypeDeltaTime: 0
-    waitAfterTime: 1
+    waitAfterTime: 1.5
+  - text: \nPress ENTER to continue...
+    isSlowType: 0
+    slowTypeDeltaTime: 0
+    waitAfterTime: 0
 --- !u!81 &168444658
 AudioListener:
   m_ObjectHideFlags: 0
