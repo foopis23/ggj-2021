@@ -163,7 +163,7 @@ MonoBehaviour:
   - {fileID: 3018984909736841151, guid: f77cb2bd1f4038545a0caede5260a9aa, type: 3}
   - {fileID: 4071819151367243567, guid: 42f824eb1221d954ba40d9e7a2bc3184, type: 3}
   - {fileID: 4328032582067424495, guid: 55f98e1c6af73b048a7abbdf01019932, type: 3}
-  - {fileID: 671660222913269814, guid: 73bc4fa263a5bb0439e18cb827a5f81f, type: 3}
+  - {fileID: 671660222913269814, guid: bd6c0506b7f2460449bca00e2eccae30, type: 3}
   - {fileID: 5299364872918998340, guid: da74a7609504b394a8ed517535f40a05, type: 3}
   StartingRoomPrefab: {fileID: 522489428994746690, guid: 80fb843de688fa941b20baf4ed0bde68, type: 3}
   WallPrefab: {fileID: 8742071953676694292, guid: 68c09a82c36553d4b9670d613a9cb8bd, type: 3}

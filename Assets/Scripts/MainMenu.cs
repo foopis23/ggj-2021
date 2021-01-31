@@ -46,7 +46,7 @@ public class MainMenu : TerminalController
 
     private void logClear()
     {
-        for (int y = 1; y < 5; y++)
+        for (int y = 1; y < 6; y++)
         {
             for (int x = 1; x < 120; x++)
             {
@@ -71,7 +71,7 @@ public class MainMenu : TerminalController
                 setCursorPos(15, 9);
                 write("IT Service 2154");
                 setCursorPos(15, 10);
-                write("Find our customer's Lost Document and Return them");
+                write("Find our customer\'s Lost Documents and Return them");
                 setCursorPos(15, 12);
                 write("Enter Cyberspace\n");
                 setCursorPos(15, 13);
@@ -82,6 +82,46 @@ public class MainMenu : TerminalController
                 write("Logs\n");
                 setCursorPos(15, 16);
                 write("Quit\n");
+                drawMenuCursor(0);
+            }
+            if (displayedMenu == 1)
+            {
+                setCursorPos(15, 9);
+                write("Use those CYBERSPACE points to upgrade the equipment available to you.");
+                setCursorPos(15, 10);
+                write("Recovery Unit: 177 ");
+                setCursorPos(15, 11);
+                write("WARNING: Does not work");
+                setCursorPos(15, 12);
+                write("Gun Damage");
+                setCursorPos(15, 13);
+                write("Player Health");
+                setCursorPos(15, 14);
+                write("Health Recovery");
+                setCursorPos(15, 15);
+                write("Object Spawn Rate");
+                setCursorPos(15, 16);
+                write("Exit");
+                drawMenuCursor(0);
+            }
+            if (displayedMenu == 2)
+            {
+                setCursorPos(15, 9);
+                write("ITRecovery Cyberspace Settings Recovery Unit: 177");
+                setCursorPos(15, 10);
+                write("THIS SCREEN IS CURRENTLY NOT OPPERATIONAL AND IS ONLY HERE TO MAKE");
+                setCursorPos(15, 11);
+                write("ITRECOVERY EMPLOYEES FEEL AS IF WE CARE ABOUT THEM");
+                setCursorPos(15, 12);
+                write("Mouse Sensitivity:   ");
+                setCursorPos(15, 13);
+                write("Interact Binding:    ");
+                setCursorPos(15, 14);
+                write("Game Volume:         ");
+                setCursorPos(15, 15);
+                write("FOV:                 ");
+                setCursorPos(15, 16);
+                write("Exit");
                 drawMenuCursor(0);
             }
             if (displayedMenu == 3)
@@ -100,6 +140,7 @@ public class MainMenu : TerminalController
                 write("Email from: Boss@ITRecovery.org");
                 setCursorPos(15, 16);
                 write("Exit");
+                drawMenuCursor(0);
             }
 
             if (Input.GetKeyDown("s"))
@@ -162,21 +203,75 @@ public class MainMenu : TerminalController
                         displayedMenu = 0;
                     }
                 }
+                if (displayedMenu == 2)
+                {
+                    if (menuIndex == 0)
+                    {
+                        
+                    }
+                    if (menuIndex == 1)
+                    {
+                        
+                    }
+                    if (menuIndex == 2)
+                    {
+                        
+                    }
+                    if (menuIndex == 3) 
+                    {
+                        
+                    }
+                    if (menuIndex == 4)
+                    {
+                        clear();
+                        displayedMenu = 0;
+                    }
+                }
+
+                if (displayedMenu == 1)
+                {
+                    if (menuIndex == 0)
+                    {
+
+                    }
+                    if (menuIndex == 1)
+                    {
+
+                    }
+                    if (menuIndex == 2)
+                    {
+
+                    }
+                    if (menuIndex == 3)
+                    {
+
+                    }
+                    if (menuIndex == 4)
+                    {
+                        clear();
+                        displayedMenu = 0;
+                    }
+                }
+
                 if (displayedMenu == 0)
                 {
                     if (menuIndex == 0)
                     {
                         SceneManager.LoadScene(1);
                     }
-                    if (menuIndex == 1)//UPGRADES
+                    if (menuIndex == 1)
                     {
                         displayedMenu = 1;
+                        clear();
+                        drawMenuCursor(-1);
                     }
-                    if (menuIndex == 2) //SETTINGS
+                    if (menuIndex == 2)
                     {
                         displayedMenu = 2;
+                        clear();
+                        drawMenuCursor(-2);
                     }
-                    if (menuIndex == 3) //LOGS
+                    if (menuIndex == 3)
                     {
                         displayedMenu = 3;
                         clear();
@@ -184,7 +279,7 @@ public class MainMenu : TerminalController
                     }
                     if (menuIndex == 4)
                     {
-                        //CLOSE THE GAME
+                        Application.Quit();
                     }
                 }
             }
