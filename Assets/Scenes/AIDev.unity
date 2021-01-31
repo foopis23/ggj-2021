@@ -3910,6 +3910,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!23 &2050507198 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2616779619034415023, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+  m_PrefabInstance: {fileID: 2616779621084921361}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2138342304
 Mesh:
   m_ObjectHideFlags: 0
@@ -4092,13 +4097,73 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
-      propertyPath: minStrafeDistance
-      value: 10
+      propertyPath: hurtMesh.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
-      propertyPath: maxStrafeDistance
-      value: 30
-      objectReference: {fileID: 0}
+      propertyPath: hurtMesh.Array.data[0]
+      value: 
+      objectReference: {fileID: 6868368788165952576}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[1]
+      value: 
+      objectReference: {fileID: 6868368787029720588}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[2]
+      value: 
+      objectReference: {fileID: 3731177961387732510}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[0].mesh
+      value: 
+      objectReference: {fileID: 6868368788165952576}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[1].mesh
+      value: 
+      objectReference: {fileID: 6868368787029720588}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[2].mesh
+      value: 
+      objectReference: {fileID: 6868368788025783799}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[2].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 8adaa33bf2eaa4d0ba88fccb3e142a7d, type: 2}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[1].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 8adaa33bf2eaa4d0ba88fccb3e142a7d, type: 2}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[0].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 21d2dbe06af600e4b92f9ec69ce5cf79, type: 2}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[0].hurtMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[1].hurtMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[2].hurtMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[3].mesh
+      value: 
+      objectReference: {fileID: 2050507198}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[3].hurtMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
+    - target: {fileID: -1220558957772153682, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+      propertyPath: hurtMesh.Array.data[3].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 8adaa33bf2eaa4d0ba88fccb3e142a7d, type: 2}
     - target: {fileID: 8863631859214187394, guid: 699140f891633924aa362ad9b26d1980, type: 3}
       propertyPath: m_Name
       value: bALL bGONE
@@ -4149,6 +4214,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+--- !u!23 &3731177961387732510 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1699939144445677583, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+  m_PrefabInstance: {fileID: 2616779621084921361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6868368787029720588 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8863631859468599325, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+  m_PrefabInstance: {fileID: 2616779621084921361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6868368788025783799 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8863631858581588966, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+  m_PrefabInstance: {fileID: 2616779621084921361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6868368788165952576 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8863631858458196561, guid: 699140f891633924aa362ad9b26d1980, type: 3}
+  m_PrefabInstance: {fileID: 2616779621084921361}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7824608063226687412
 PrefabInstance:
   m_ObjectHideFlags: 0

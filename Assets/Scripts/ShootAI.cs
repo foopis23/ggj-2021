@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using CallbackEvents;
 
+[System.Serializable]
+public class HurtMesh
+{
+    public MeshRenderer mesh;
+    public Material hurtMaterial;
+    public Material material;
+}
+
 public class ShootAI : MonoBehaviour
 {
     //components
@@ -31,7 +39,8 @@ public class ShootAI : MonoBehaviour
     public GameObject projectilePrefab;
 
     //damage settings
-    public MeshRenderer[] hurtMesh; //meshs to apply the hurt material to on damaged
+    public HurtMesh[] hurtMesh;
+    // public MeshRenderer[] hurtMesh; //meshs to apply the hurt material to on damaged
     public Material hurtMaterial; //material to apply on damaged
     public Material normalMaterial; //material to restore normal colors
 
@@ -375,9 +384,10 @@ public class ShootAI : MonoBehaviour
     public void OnDamgeFinshed()
     {
         invisible = false;
-        foreach (MeshRenderer mesh in hurtMesh)
+        foreach (HurtMesh obj in hurtMesh)
         {
-            mesh.material = normalMaterial;
+            MeshRenderer mesh = obj.mesh;
+            mesh.material = obj.material;
         }
 
         if (health <= 0)
@@ -447,16 +457,17 @@ public class ShootAI : MonoBehaviour
 
     private void TakeDamage(float damage)
     {
-        // if (!invisible)
-        // {
-        //     invisible = false;
-        //     health -= damage;
-        //     foreach (MeshRenderer mesh in hurtMesh)
-        //     {
-        //         mesh.material = hurtMaterial;
-        //     }
-        // }
+        if (!invisible)
+        {
+            invisible = false;
+            health -= damage;
+            foreach (HurtMesh obj in hurtMesh)
+            {
+                MeshRenderer mesh = obj.mesh;
+                mesh.material = obj.hurtMaterial;
+            }
+        }
 
-        // EventSystem.Current.CallbackAfter(OnDamgeFinshed, 400);
+        EventSystem.Current.CallbackAfter(OnDamgeFinshed, 400);
     }
 }
