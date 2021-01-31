@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : TerminalController
 {
+    public TutorialMessage TutorialScreen;
     public Image fadeBackground;
     public float opacityDamp;
     private float opacity;
@@ -84,7 +84,8 @@ public class MainMenu : TerminalController
             {
                 if (menuIndex == 0)
                 {
-                    SceneManager.LoadScene(1);
+                    TutorialScreen.Enabled = true;
+                    gameObject.SetActive(false);
                 }
             }
         }
