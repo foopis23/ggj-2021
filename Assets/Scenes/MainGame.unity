@@ -123,6 +123,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &753180814
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5149531889725848451, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_Name
+      value: PickupPistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056485540055399750, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726800685660568309, guid: 651456c9b716442418dc048d77f70d09, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 651456c9b716442418dc048d77f70d09, type: 3}
 --- !u!1 &785878133
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +245,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4476629033067419181, guid: fc3d9dd9846ac074bbefb160c774d5ed, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7040998238859247575, guid: fc3d9dd9846ac074bbefb160c774d5ed, type: 3}
       propertyPath: m_Name
       value: PickupAssault
@@ -241,6 +306,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 36173065135891057, guid: 76bb42b2d5f9bff4ab918bcc3f93098c, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2821685073578550371, guid: 76bb42b2d5f9bff4ab918bcc3f93098c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12
