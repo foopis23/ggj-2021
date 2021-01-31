@@ -19,17 +19,15 @@ public class ClearCameraSetter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
-            ASCII ascii = other.gameObject.GetComponentInChildren<ASCII>();
-            ascii.pixelate = false;
-            ascii.tranparency = 1.0f;
+            ASCII.Instance.pixelate = false;
+            ASCII.Instance.tranparency = 1.0f;
         }
     }
 
         private void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Player") {
-            ASCII ascii = other.gameObject.GetComponentInChildren<ASCII>();
-            ascii.pixelate = true;
-            ascii.tranparency = 0.0f;
+            ASCII.Instance.pixelate = true;
+            ASCII.Instance.tranparency = 0.0f;
         }
     }
 }
