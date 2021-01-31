@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   Model: Pistol
-  BulletDamage: 8
+  BulletDamage: 17
   BulletRange: 200
   FireCooldown: 0.3
   Spread: 2

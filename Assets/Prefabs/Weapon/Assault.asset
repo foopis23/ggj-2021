@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Assault
   m_EditorClassIdentifier: 
   Model: Assault
-  BulletDamage: 2.5
+  BulletDamage: 4
   BulletRange: 200
   FireCooldown: 0.07
   Spread: 8

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Model: Shotgun
   BulletDamage: 13
-  BulletRange: 30
+  BulletRange: 40
   FireCooldown: 1.2
   Spread: 24
   BulletsPerShot: 8
