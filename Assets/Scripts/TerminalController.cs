@@ -103,7 +103,6 @@ public class TerminalController : MonoBehaviour
     // Start is called before the first frame update
     public void Init()
     {
-        outputBuffer = new StringBuilder();
         cursorPos = new CursorPos();
         displayIsDirty = true;
         consoleElements = new Queue<ConsoleElement>(ConsoleElements);
@@ -149,6 +148,7 @@ public class TerminalController : MonoBehaviour
 
     private void resetBuffer()
     {
+        outputBuffer = new StringBuilder();
         for (int y = 0; y < terminalHeight; y++)
         {
             for (int x = 0; x < terminalWidth; x++)
@@ -213,6 +213,20 @@ public class TerminalController : MonoBehaviour
         resetBuffer();
         cursorPos.x = 0;
         cursorPos.y = 0;
+        displayIsDirty = true;
+    }
+
+
+    public void clearBox(int X, int Y, int W, int H)
+    {
+        for (int y = Y; y < H; y++)
+        {
+            for (int x = X; x < W; x++)
+            {
+                setCursorPos(x, y);
+                write(' ');
+            }
+        }
         displayIsDirty = true;
     }
 }
