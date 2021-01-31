@@ -5,6 +5,9 @@ using CallbackEvents;
 
 public class Terminal : MonoBehaviour, IInteractable
 {
+    // public variables
+    public bool Return = false;
+
     // Automatic Properties
     public Vector3 LinkedLevelLocation { get; set; }
 
@@ -27,6 +30,13 @@ public class Terminal : MonoBehaviour, IInteractable
     {
         //TODO: cool terminal camera zoom text interface puzzle hacking minigame piss baby desu
 
-        EventSystem.Current.FireEvent(new GenerateNextLevelContext(LinkedLevelLocation));
+        if(Return)
+        {
+            EventSystem.Current.FireEvent(new GotoPreviousLevelContext());
+        }
+        else
+        {
+            EventSystem.Current.FireEvent(new GenerateNextLevelContext(LinkedLevelLocation));
+        }
     }
 }

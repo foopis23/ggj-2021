@@ -27,8 +27,12 @@ public class MapGenerator : MonoBehaviour
     public GameObject StartingRoomPrefab;
     public GameObject WallPrefab;
     public GameObject TerminalPrefab;
+    public GameObject DocumentPrefab;
     public int NumRooms = 20;
     public int NumWeaponPickups = 2;
+    public int MinDocuments = 3;
+    public int MaxDocuments = 7;
+    public int MinTerminals = 1;
     public int MaxTerminals = 4;
 
     // private variables
@@ -61,12 +65,14 @@ public class MapGenerator : MonoBehaviour
         parent.AddComponent<NavMeshSurface>();
 
         Level level = new Level();
-        int numTerminals = Levels.Count == 0 ? MaxTerminals : random.Next(1, MaxTerminals + 1);
+        int numTerminals = Levels.Count == 0 ? MaxTerminals : random.Next(MinTerminals, MaxTerminals + 1);
+        int numDocuments = random.Next(MinDocuments, MaxDocuments + 1);
 
         Vector2[] directions = {Vector2.up, Vector2.right, Vector2.down, Vector2.left};
         List<Vector2> roomLocations = new List<Vector2>();
         List<Vector2> terminalRoomLocations = new List<Vector2>();
         List<Vector2> weaponRoomLocations = new List<Vector2>();
+        List<Vector2> documentRoomLocations = new List<Vector2>();
         roomLocations.Add(Vector2.zero);
 
         while(roomLocations.Count < NumRooms)
@@ -94,6 +100,15 @@ public class MapGenerator : MonoBehaviour
             if(randRoom != Vector2.zero && !terminalRoomLocations.Contains(randRoom))
             {
                 weaponRoomLocations.Add(randRoom);
+            }
+        }
+
+        while(documentRoomLocations.Count < numDocuments)
+        {
+            Vector2 randRoom = roomLocations[random.Next(roomLocations.Count)];
+            if(randRoom != Vector2.zero && !terminalRoomLocations.Contains(randRoom) && !weaponRoomLocations.Contains(randRoom))
+            {
+                documentRoomLocations.Add(randRoom);
             }
         }
 
@@ -143,6 +158,13 @@ public class MapGenerator : MonoBehaviour
                 GameObject weaponPickupObject = Instantiate(WeaponPickupPrefabs[random.Next(WeaponPickupPrefabs.Length)]);
                 GameObject weaponPlacementObject = room.TerminalLocations[random.Next(room.TerminalLocations.Length)];
                 weaponPickupObject.transform.position = weaponPlacementObject.transform.position - weaponPickupObject.GetComponent<SphereCollider>().center + Vector3.up;
+            }
+
+            if(documentRoomLocations.Contains(roomLocation))
+            {
+                GameObject documentPickupObject = Instantiate(DocumentPrefab);
+                GameObject documentPlacementObject = room.TerminalLocations[random.Next(room.TerminalLocations.Length)];
+                documentPickupObject.transform.position = documentPlacementObject.transform.position + Vector3.up;
             }
 
             if(roomLocation != Vector2.zero)

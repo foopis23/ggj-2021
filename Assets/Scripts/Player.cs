@@ -39,6 +39,9 @@ public class GotoNextLevelContext : EventContext
     }
 }
 
+public class GotoPreviousLevelContext : EventContext
+{}
+
 public class Player : MonoBehaviour
 {
     // public variables
@@ -52,7 +55,9 @@ public class Player : MonoBehaviour
     // private variables
     private Camera playerCamera;
     private float health;
-    private Stack<Vector3> levelStack;
+    private int documents;
+    private Stack<Vector3> levelPositionStack;
+    private Stack<Quaternion> levelRotationStack;
 
     // automatic properties
     public CharacterController CharacterController { get; set; }
@@ -63,12 +68,14 @@ public class Player : MonoBehaviour
     {
         EventSystem.Current.RegisterEventListener<GroundPoundContext>(OnGroundPound);
         EventSystem.Current.RegisterEventListener<GotoNextLevelContext>(OnGotoNextLevel);
+        EventSystem.Current.RegisterEventListener<GotoPreviousLevelContext>(OnGotoPreviousLevel);
         EventSystem.Current.RegisterEventListener<PickupWeaponContext>(OnPickupWeapon);
         EventSystem.Current.RegisterEventListener<PickupItemContext>(OnPickupItem);
         playerCamera = Camera.main;
         health = maxHealth;
         CharacterController = GetComponent<CharacterController>();
-        levelStack = new Stack<Vector3>();
+        levelPositionStack = new Stack<Vector3>();
+        levelRotationStack = new Stack<Quaternion>();
 
         foreach(Gun gun in HeldGuns)
         {
@@ -183,10 +190,22 @@ public class Player : MonoBehaviour
 
     public void OnGotoNextLevel(GotoNextLevelContext context)
     {
-        levelStack.Push(transform.position);
+        levelPositionStack.Push(transform.position);
+        levelRotationStack.Push(transform.rotation);
         CharacterController.enabled = false;
         transform.position = context.location;
         CharacterController.enabled = true;
+    }
+
+    public void OnGotoPreviousLevel(GotoPreviousLevelContext context)
+    {
+        if(levelPositionStack.Count != 0)
+        {
+            CharacterController.enabled = false;
+            transform.position = levelPositionStack.Pop();
+            transform.rotation = levelRotationStack.Pop();
+            CharacterController.enabled = true;
+        }
     }
 
     public void OnPickupWeapon(PickupWeaponContext context)
@@ -223,6 +242,6 @@ public class Player : MonoBehaviour
 
     public void OnPickupItem(PickupItemContext context)
     {
-
+        documents++;
     }
 }
