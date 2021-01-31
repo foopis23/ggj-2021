@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CallbackEvents;
@@ -64,7 +64,7 @@ public class Gun : MonoBehaviour
         {
             lastFire = Time.time;
             shootSoundy.volume = GunData.Model == "Assault" ? 0.5f : 1;
-            shootSoundy.pitch = 1 + Random.value * 0.05f - 0.025f;
+            shootSoundy.pitch = 1 + Random.value * 0.1f - 0.05f;
             shootSoundy.Play();
             animator.SetBool("isFiring", true);
             for(int i = 0; i < GunData.BulletsPerShot; i++)
