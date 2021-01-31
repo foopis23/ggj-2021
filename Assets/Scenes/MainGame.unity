@@ -158,6 +158,7 @@ MonoBehaviour:
   - {fileID: 1439666771214836916, guid: 76bb42b2d5f9bff4ab918bcc3f93098c, type: 3}
   EnemyPrefabs:
   - {fileID: 7824608064262084826, guid: 9dcd4df867e941f4c9a3c62181860fe2, type: 3}
+  - {fileID: 8863631859214187394, guid: 699140f891633924aa362ad9b26d1980, type: 3}
   RoomPrefabs:
   - {fileID: 3410956691297235327, guid: 97caa6afcc3a86f49a032061a9117ab6, type: 3}
   - {fileID: 3018984909736841151, guid: f77cb2bd1f4038545a0caede5260a9aa, type: 3}

@@ -691,8 +691,20 @@ MonoBehaviour:
   invisible: 0
   attackChargeSpeed: 6
   projectilePrefab: {fileID: 3032127556976573392, guid: 4fa1b5aecbd6a4c48a79b0028d0eb004, type: 3}
-  hurtMesh: []
-  hurtMaterial: {fileID: 0}
+  hurtMesh:
+  - mesh: {fileID: 8863631858458196561}
+    hurtMaterial: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
+    material: {fileID: 2100000, guid: 21d2dbe06af600e4b92f9ec69ce5cf79, type: 2}
+  - mesh: {fileID: 8863631859468599325}
+    hurtMaterial: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
+    material: {fileID: 2100000, guid: 8adaa33bf2eaa4d0ba88fccb3e142a7d, type: 2}
+  - mesh: {fileID: 8863631858581588966}
+    hurtMaterial: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
+    material: {fileID: 2100000, guid: 8adaa33bf2eaa4d0ba88fccb3e142a7d, type: 2}
+  - mesh: {fileID: 2616779619034415023}
+    hurtMaterial: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
+    material: {fileID: 2100000, guid: 8adaa33bf2eaa4d0ba88fccb3e142a7d, type: 2}
+  hurtMaterial: {fileID: 2100000, guid: 9b8b03c7edffbcc4ba181b4741a2c388, type: 2}
   normalMaterial: {fileID: 0}
   maxHealth: 100
   attackPrep1Sound: {fileID: 6868368787384862100}
@@ -747,8 +759,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 306f46d0a89f1479490230cafb67a519, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 53fe318ece676064fbd47a305a50d2b8, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -843,8 +855,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4e5ffba9022b3434dbcd53fe3742c227, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 6fa6d10c25159504e908e27a15c66214, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
