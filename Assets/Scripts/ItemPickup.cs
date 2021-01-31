@@ -14,6 +14,9 @@ public class PickupItemContext : EventContext
 }
 public class ItemPickup : MonoBehaviour, IInteractable
 {
+    // public variables
+    public float RotationSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +26,7 @@ public class ItemPickup : MonoBehaviour, IInteractable
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(new Vector3(0, RotationSpeed, 0));
     }
 
     public void OnInteractable()
@@ -34,5 +37,6 @@ public class ItemPickup : MonoBehaviour, IInteractable
     public void Interact()
     {
         EventSystem.Current.FireEvent(new PickupItemContext(this));
+        Destroy(gameObject);
     }
 }
