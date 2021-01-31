@@ -21,11 +21,15 @@ public class MapGenerator : MonoBehaviour
     public const int LEVEL_OFFSET = 1000;
 
     // public variables
+    public GameObject[] WeaponPickupPrefabs;
+    public GameObject[] EnemyPrefabs;
     public GameObject[] RoomPrefabs;
     public GameObject StartingRoomPrefab;
     public GameObject WallPrefab;
     public GameObject TerminalPrefab;
-    public int NumRooms = 10;
+    public int NumRooms = 20;
+    public int NumWeaponPickups = 2;
+    public int MaxTerminals = 4;
 
     // private variables
     private System.Random random;
@@ -57,11 +61,12 @@ public class MapGenerator : MonoBehaviour
         parent.AddComponent<NavMeshSurface>();
 
         Level level = new Level();
-        int numTerminals = Levels.Count == 0 ? 3 : random.Next(1, 4);
+        int numTerminals = Levels.Count == 0 ? MaxTerminals : random.Next(1, MaxTerminals + 1);
 
         Vector2[] directions = {Vector2.up, Vector2.right, Vector2.down, Vector2.left};
         List<Vector2> roomLocations = new List<Vector2>();
         List<Vector2> terminalRoomLocations = new List<Vector2>();
+        List<Vector2> weaponRoomLocations = new List<Vector2>();
         roomLocations.Add(Vector2.zero);
 
         while(roomLocations.Count < NumRooms)
@@ -80,6 +85,15 @@ public class MapGenerator : MonoBehaviour
             if(randRoom != Vector2.zero)
             {
                 terminalRoomLocations.Add(randRoom);
+            }
+        }
+
+        while(weaponRoomLocations.Count < NumWeaponPickups)
+        {
+            Vector2 randRoom = roomLocations[random.Next(roomLocations.Count)];
+            if(randRoom != Vector2.zero && !terminalRoomLocations.Contains(randRoom))
+            {
+                weaponRoomLocations.Add(randRoom);
             }
         }
 
@@ -119,11 +133,23 @@ public class MapGenerator : MonoBehaviour
                 GameObject terminalPlacementObject = room.TerminalLocations[random.Next(room.TerminalLocations.Length)];
                 terminalObject.transform.position = terminalPlacementObject.transform.position;
                 terminalObject.transform.rotation = terminalPlacementObject.transform.rotation;
-                terminalObject.transform.position += new Vector3(0, -0, 0);
-                terminalObject.transform.rotation = Quaternion.Euler(-0, 0, 0);
                 Terminal terminal = terminalObject.GetComponent<Terminal>();
                 terminal.LinkedLevelLocation = LEVEL_OFFSET * NextLevelLocation;
                 level.Terminals.Add(terminal);
+            }
+
+            if(weaponRoomLocations.Contains(roomLocation))
+            {
+                GameObject weaponPickupObject = Instantiate(WeaponPickupPrefabs[random.Next(WeaponPickupPrefabs.Length)]);
+                GameObject weaponPlacementObject = room.TerminalLocations[random.Next(room.TerminalLocations.Length)];
+                weaponPickupObject.transform.position = weaponPlacementObject.transform.position - weaponPickupObject.GetComponent<SphereCollider>().center + Vector3.up;
+            }
+
+            if(roomLocation != Vector2.zero)
+            {
+                GameObject EnemyObject = Instantiate(EnemyPrefabs[random.Next(EnemyPrefabs.Length)]);
+                GameObject EnemyPlacementObject = room.SpawnLocations[random.Next(room.SpawnLocations.Length)];
+                EnemyObject.transform.position = EnemyPlacementObject.transform.position;
             }
         }
 
