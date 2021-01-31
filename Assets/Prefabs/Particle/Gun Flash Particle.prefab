@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3785702937874200340, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c3bf1439d41d464690a9cd77da55881, type: 2}
     - target: {fileID: 3785702937874200341, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}
       propertyPath: m_Name
       value: Gun Flash Particle
@@ -54,6 +58,18 @@ PrefabInstance:
     - target: {fileID: 3785702937874200342, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785702937874200342, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785702937874200342, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785702937874200342, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3785702937874200343, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}
       propertyPath: ShapeModule.angle
@@ -125,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3785702937874200343, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}

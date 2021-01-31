@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6733577574827282866
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221424, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221425, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221425, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: InheritVelocityModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221425, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221426, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c3bf1439d41d464690a9cd77da55881, type: 2}
+    - target: {fileID: 1286200894474221427, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_Name
+      value: Gun Flash (Pistol)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}

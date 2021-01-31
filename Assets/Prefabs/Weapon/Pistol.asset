@@ -20,4 +20,5 @@ MonoBehaviour:
   BulletsPerShot: 1
   Automatic: 0
   FireSound: {fileID: 8300000, guid: 5d6c1a072f40f4cc88e8fd15b199d000, type: 3}
-  HitParticle: {fileID: 1286200894474221427, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+  FireParticle: {fileID: 5524784000858662593, guid: 616c32800213591419e7364ff919d141, type: 3}
+  HitParticle: {fileID: 3785702937874200341, guid: 7377320b94c88614b8d6dd513d05bc93, type: 3}

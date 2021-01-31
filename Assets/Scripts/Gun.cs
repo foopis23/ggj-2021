@@ -16,8 +16,8 @@ public class Gun : MonoBehaviour
     private bool preFire;
     private bool doThing;
     private Camera playerCamera;
+    private GameObject model;
     private Animator animator;
-    private ParticleSystem fireParticle;
 
     // automatic properties
     public bool Empty { get; private set; }
@@ -56,9 +56,8 @@ public class Gun : MonoBehaviour
         Empty = false;
         GunData = gunData;
         shootSoundy.clip = gunData.FireSound;
-        GameObject model = GunManager.Current.GetModel(gunData);
+        model = GunManager.Current.GetModel(gunData);
         animator = model.GetComponent<Animator>();
-        fireParticle = model.GetComponentInChildren<ParticleSystem>();
     }
 
     public void Fire()
@@ -71,12 +70,9 @@ public class Gun : MonoBehaviour
             shootSoundy.Play();
             animator.SetBool("isFiring", true);
             {
-                if(fireParticle.isPlaying)
-                {
-                    fireParticle.Stop();
-                }
-
-                fireParticle.Play();
+                GameObject particleObject = Instantiate(GunData.FireParticle, playerCamera.gameObject.transform);
+                ParticleSystem particleSystem = particleObject.GetComponent<ParticleSystem>();
+                Destroy(particleObject, particleSystem.main.duration + particleSystem.main.startLifetimeMultiplier);
             }
             for(int i = 0; i < GunData.BulletsPerShot; i++)
             {

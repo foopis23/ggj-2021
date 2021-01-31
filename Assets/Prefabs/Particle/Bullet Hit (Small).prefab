@@ -71,9 +71,13 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.scalar
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 1286200894474221426, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbd16a2df59c9c04f8d4bf691223902c, type: 2}
     - target: {fileID: 1286200894474221427, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}
       propertyPath: m_Name
-      value: Small Bullet Hit Particle
+      value: Bullet Hit (Small)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57f78745a81b3e14baaa5aa626fe2e7e, type: 3}

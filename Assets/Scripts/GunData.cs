@@ -13,5 +13,6 @@ public class GunData : ScriptableObject
     public int BulletsPerShot;
     public bool Automatic;
     public AudioClip FireSound;
+    public GameObject FireParticle;
     public GameObject HitParticle;
 }
