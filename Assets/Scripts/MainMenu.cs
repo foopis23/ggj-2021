@@ -181,9 +181,9 @@ public class MainMenu : TerminalController
                         setCursorPos(1, 1);
                         write("This is where the money is baby! Find these sweet white rectangles hidden in CYBERSPACE. Each one increases points");
                         setCursorPos(1, 2);
-                        write("which in turn increases profits. WARNING: The more you hold, the more you are noticed.");
+                        write("which in turn increases profits. WARNING: The more you collect, the more you will be targeted by the hackers.");
                         setCursorPos(1, 4);
-                        write("ITRecovery is not responsible for any Accidental Loss of Life in the Field");
+                        write("By reading this sentence you agree that ITRecovery is not responsible for any Accidental Loss of Life in the Field.");
                     }
                     if (menuIndex == 3)
                     {
