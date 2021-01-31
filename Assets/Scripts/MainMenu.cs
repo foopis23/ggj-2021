@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : TerminalController
 {
+    public Image fadeBackground;
+    public float opacityDamp;
+    private float opacity;
+
     private bool displayedMenu;
     private CursorPos[] menuCursorLocations = new CursorPos[] {
         new CursorPos(13, 13),
@@ -18,6 +23,7 @@ public class MainMenu : TerminalController
     void Start()
     {
         Init();
+        opacity = 1.0f;
     }
 
     private void drawMenuCursor(int di)
@@ -25,9 +31,12 @@ public class MainMenu : TerminalController
         setCursorPos(menuCursorLocations[menuIndex].x, menuCursorLocations[menuIndex].y);
         write(' ');
         int next = menuIndex + di;
-        if (next < 0) {
+        if (next < 0)
+        {
             menuIndex = menuCursorLocations.Length + next;
-        }else{
+        }
+        else
+        {
             menuIndex = next % menuCursorLocations.Length;
         }
         setCursorPos(menuCursorLocations[menuIndex].x, menuCursorLocations[menuIndex].y);
@@ -37,7 +46,11 @@ public class MainMenu : TerminalController
     // Update is called once per frame
     void Update()
     {
+        opacity = Mathf.Lerp(opacity, 0.0f, opacityDamp * Time.deltaTime);
+        fadeBackground.color = new Color(fadeBackground.color.r, fadeBackground.color.g, fadeBackground.color.b, opacity);
+
         Run();
+        
         if (consoleElements.Count < 1)
         {
             if (!displayedMenu)
@@ -57,16 +70,20 @@ public class MainMenu : TerminalController
                 drawMenuCursor(0);
             }
 
-            if (Input.GetKeyDown("s")) {
+            if (Input.GetKeyDown("s"))
+            {
                 drawMenuCursor(1);
             }
 
-            if (Input.GetKeyDown("w")) {
+            if (Input.GetKeyDown("w"))
+            {
                 drawMenuCursor(-1);
             }
 
-            if (Input.GetKeyDown("return")) {
-                if (menuIndex == 0) {
+            if (Input.GetKeyDown("return"))
+            {
+                if (menuIndex == 0)
+                {
                     SceneManager.LoadScene(1);
                 }
             }
