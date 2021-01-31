@@ -1229,6 +1229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a180f56aa94ee40bfb460ad2f52389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 434536067409991347}
   playerView: {fileID: 0}
   playerViewYOffset: 0.6
   xMouseSensitivity: 50
@@ -1335,6 +1336,8 @@ MonoBehaviour:
   CurrentGun: 0
   InteractionDistance: 3
   maxHealth: 100
+  fadeOverlay: {fileID: 0}
+  fadeDamp: 0.8
 --- !u!143 &5047051164910095950
 CharacterController:
   m_ObjectHideFlags: 0
