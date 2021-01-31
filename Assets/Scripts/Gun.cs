@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CallbackEvents;
@@ -17,6 +17,7 @@ public class Gun : MonoBehaviour
     private bool doThing;
     private Camera playerCamera;
     private Animator animator;
+    private ParticleSystem fireParticle;
 
     // automatic properties
     public bool Empty { get; private set; }
@@ -55,7 +56,9 @@ public class Gun : MonoBehaviour
         Empty = false;
         GunData = gunData;
         shootSoundy.clip = gunData.FireSound;
-        animator = GunManager.Current.GetModel(gunData).GetComponent<Animator>();
+        GameObject model = GunManager.Current.GetModel(gunData);
+        animator = model.GetComponent<Animator>();
+        fireParticle = model.GetComponentInChildren<ParticleSystem>();
     }
 
     public void Fire()
@@ -67,6 +70,14 @@ public class Gun : MonoBehaviour
             shootSoundy.pitch = 1 + Random.value * 0.1f - 0.05f;
             shootSoundy.Play();
             animator.SetBool("isFiring", true);
+            {
+                if(fireParticle.isPlaying)
+                {
+                    fireParticle.Stop();
+                }
+
+                fireParticle.Play();
+            }
             for(int i = 0; i < GunData.BulletsPerShot; i++)
             {
                 RaycastHit hit;
