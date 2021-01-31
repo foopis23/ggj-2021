@@ -172,6 +172,16 @@ public class MapGenerator : MonoBehaviour
                 GameObject EnemyObject = Instantiate(EnemyPrefabs[random.Next(EnemyPrefabs.Length)]);
                 GameObject EnemyPlacementObject = room.SpawnLocations[random.Next(room.SpawnLocations.Length)];
                 EnemyObject.transform.position = EnemyPlacementObject.transform.position;
+                if(room.SpawnLocations.Length > 1)
+                {
+                    GameObject AnotherEnemyObject = Instantiate(EnemyPrefabs[random.Next(EnemyPrefabs.Length)]);
+                    GameObject AnotherEnemyPlacementObject;
+                    do
+                    {
+                        AnotherEnemyPlacementObject = room.SpawnLocations[random.Next(room.SpawnLocations.Length)];
+                    } while(AnotherEnemyPlacementObject == EnemyPlacementObject);
+                    AnotherEnemyObject.transform.position = EnemyPlacementObject.transform.position;
+                }
             }
         }
 
