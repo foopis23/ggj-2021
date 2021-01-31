@@ -10,8 +10,8 @@ public class MainMenu : TerminalController
     public float opacityDamp;
     private float opacity;
 
-    private bool displayedMenu;
     private CursorPos[] menuCursorLocations = new CursorPos[] {
+        new CursorPos(13, 12),
         new CursorPos(13, 13),
         new CursorPos(13, 14),
         new CursorPos(13, 15),
@@ -19,6 +19,7 @@ public class MainMenu : TerminalController
     };
 
     int menuIndex = 0;
+    int displayedMenu = 0;
 
     void Start()
     {
@@ -43,6 +44,18 @@ public class MainMenu : TerminalController
         write('>');
     }
 
+    private void logClear()
+    {
+        for (int y = 1; y < 5; y++)
+        {
+            for (int x = 1; x < 120; x++)
+            {
+                setCursorPos(x, y);
+                write(' ');
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -53,21 +66,40 @@ public class MainMenu : TerminalController
         
         if (consoleElements.Count < 1)
         {
-            if (!displayedMenu)
+            if (displayedMenu == 0)
             {
+                setCursorPos(15, 9);
+                write("IT Service 2154");
                 setCursorPos(15, 10);
-                write("Title of our game");
-                setCursorPos(15, 11);
-                write("This is the epic subtitle of josh's game");
-                setCursorPos(15, 13);
+                write("Find our customer's Lost Document and Return them");
+                setCursorPos(15, 12);
                 write("Enter Cyberspace\n");
-                setCursorPos(15, 14);
+                setCursorPos(15, 13);
                 write("Upgrades\n");
-                setCursorPos(15, 15);
+                setCursorPos(15, 14);
                 write("Settings\n");
+                setCursorPos(15, 15);
+                write("Logs\n");
                 setCursorPos(15, 16);
                 write("Quit\n");
                 drawMenuCursor(0);
+            }
+            if (displayedMenu == 3)
+            {
+                setCursorPos(15, 9);
+                write("ITRecovery Logs");
+                setCursorPos(15, 10);
+                write("Recovery Unit: 177");
+                setCursorPos(15, 12);
+                write("Terminal.txt");
+                setCursorPos(15, 13);
+                write("ReturnTerminal.txt");
+                setCursorPos(15, 14);
+                write("Documents.txt");
+                setCursorPos(15, 15);
+                write("Email from: Boss@ITRecovery.org");
+                setCursorPos(15, 16);
+                write("Exit");
             }
 
             if (Input.GetKeyDown("s"))
@@ -82,11 +114,81 @@ public class MainMenu : TerminalController
 
             if (Input.GetKeyDown("return"))
             {
-                if (menuIndex == 0)
+                if (displayedMenu == 3)
                 {
-                    SceneManager.LoadScene(1);
+                    if (menuIndex == 0)
+                    {
+                        logClear();
+                        setCursorPos(1, 1);
+                        write("This yellow terminal will send you one layer deeper into CYBERSPACE! The deeper you can go into cyberspace, the more");
+                        setCursorPos(1, 2);
+                        write("documents YOU can find. The more documents you can find, the more documents we can return to our customers.");
+                        setCursorPos(1, 3);
+                        write("This means more money. Get out there");
+                    }
+                    if (menuIndex == 1)
+                    {
+                        logClear();
+                        setCursorPos(1, 1);
+                        write("This purple terminal does the opposite of the yellow ones. These return you up one level in cyberspace. Use these when");
+                        setCursorPos(1, 2);
+                        write("you feel as if you can't collect anymore documents.");
+                    }
+                    if (menuIndex == 2)
+                    {
+                        logClear();
+                        setCursorPos(1, 1);
+                        write("This is where the money is baby! Find these sweet white rectangles hidden in CYBERSPACE. Each one increases points");
+                        setCursorPos(1, 2);
+                        write("which in turn increases profits. WARNING: The more you hold, the more you are noticed.");
+                        setCursorPos(1, 4);
+                        write("ITRecovery is not responsible for any Accidental Loss of Life in the Field");
+                    }
+                    if (menuIndex == 3)
+                    {
+                        logClear();
+                        setCursorPos(1, 1);
+                        write("UNIT 177:");
+                        setCursorPos(1, 3);
+                        write("You have been terminated and rehired 59 times. Our company has strict rules againt the rehiring of an employee for the");
+                        setCursorPos(1, 4);
+                        write("60th time. This is your last chance to prove yourself here. Make it count.");
+                        setCursorPos(1, 5);
+                        write(" - Your Boss");
+                    }
+                    if (menuIndex == 4)
+                    {
+                        clear();
+                        displayedMenu = 0;
+                    }
+                }
+                if (displayedMenu == 0)
+                {
+                    if (menuIndex == 0)
+                    {
+                        SceneManager.LoadScene(1);
+                    }
+                    if (menuIndex == 1)//UPGRADES
+                    {
+                        displayedMenu = 1;
+                    }
+                    if (menuIndex == 2) //SETTINGS
+                    {
+                        displayedMenu = 2;
+                    }
+                    if (menuIndex == 3) //LOGS
+                    {
+                        displayedMenu = 3;
+                        clear();
+                        drawMenuCursor(-3);
+                    }
+                    if (menuIndex == 4)
+                    {
+                        //CLOSE THE GAME
+                    }
                 }
             }
+
         }
     }
 }
