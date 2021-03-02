@@ -74,7 +74,6 @@ public class ZombieAI : MonoBehaviour
     private bool didSeePlayer;
     private bool canSeePlayer;
     private bool isAttacking;
-    private bool wasAttacking;
     private bool isAttackCoolingDown;
 
     /*
@@ -182,7 +181,6 @@ public class ZombieAI : MonoBehaviour
         canSeePlayer = false;
         didSeePlayer = false;
         isAttacking = false;
-        wasAttacking = false;
         isAttackCoolingDown = false;
         navMeshAgent.updateRotation = false;
         invisible = false;
