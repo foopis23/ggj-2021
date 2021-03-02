@@ -29,6 +29,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CallbackEvents;
 
 // Contains the command the user wishes upon the character
 struct Cmd
@@ -145,8 +146,6 @@ public class CPMPlayer : MonoBehaviour
 
         this.transform.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
         playerView.rotation     = Quaternion.Euler(rotX, rotY, 0); // Rotates the camera
-
-        
 
         /* Movement, here's the important part */
         QueueJump();

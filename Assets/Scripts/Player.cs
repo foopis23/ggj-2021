@@ -136,6 +136,8 @@ public class Player : MonoBehaviour
             {
                 interactable.Interact();
             }
+        }else{
+            EventSystem.Current.FireEvent(new HideInteractionDialogueContext());
         }
 
         // switching weapons
@@ -170,6 +172,8 @@ public class Player : MonoBehaviour
 
             CurrentGun = 1;
         }
+
+        EventSystem.Current.FireEvent(new UpdateHUDContext((180 - transform.rotation.eulerAngles.y) * -1));
     }
 
     private void SwitchWeapons(Gun prev, Gun next)

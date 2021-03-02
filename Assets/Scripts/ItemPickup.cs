@@ -32,6 +32,7 @@ public class ItemPickup : MonoBehaviour, IInteractable
     public void OnInteractable()
     {
         //TODO: show UI prompt
+        EventSystem.Current.FireEvent(new ShowInteractionDialogueContext("Pick Up (E)"));
     }
 
     public void Interact()

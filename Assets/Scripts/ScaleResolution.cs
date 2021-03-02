@@ -4,32 +4,37 @@ using UnityEngine;
 
 public class ScaleResolution : MonoBehaviour
 {
-    public const float screenRatio = 140.0f / 1440.0f;
-    public ASCII ascii;
+	public ASCII ascii;
+	public int characterHeight = 20;
+	public int characterWidth = 20;
+	public int rowMin;
+	public int colMin;
+	public int rowMax;
+	public int colMax;
+	private float lastHeight;
 
-    private float lastHeight;
-    
-    void Awake() {
-        if (ascii == null)
-            ascii = GetComponent<ASCII>();
+	void Awake()
+	{
+		if (ascii == null)
+			ascii = GetComponent<ASCII>();
 
-        lastHeight = Screen.height;
-        float rows = (float)Screen.height * screenRatio;
-        float cols = rows * 2;
-        ascii.rows = (uint)rows;
-        ascii.columns = (uint)cols;
-    }
+		lastHeight = Screen.height;
+		int rows = Screen.height / characterHeight;
+		int cols = Screen.width / characterWidth;
+		ascii.rows = (uint)Mathf.Min(Mathf.Max(rows, rowMin), rowMax);
+		ascii.columns = (uint)Mathf.Min(Mathf.Max(cols, colMin), colMax);
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (lastHeight != Screen.height)
-        {
-            lastHeight = Screen.height;
-            float rows = (float)Screen.height * screenRatio;
-            float cols = rows * 2;
-            ascii.rows = (uint)rows;
-            ascii.columns = (uint)cols;
-        }
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		if (lastHeight != Screen.height)
+		{
+			lastHeight = Screen.height;
+			int rows = Screen.height / characterHeight;
+			int cols = Screen.width / characterWidth;
+			ascii.rows = (uint)Mathf.Min(Mathf.Max(rows, rowMin), rowMax);
+			ascii.columns = (uint)Mathf.Min(Mathf.Max(cols, colMin), colMax);
+		}
+	}
 }
