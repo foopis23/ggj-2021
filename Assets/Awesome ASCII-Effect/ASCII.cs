@@ -183,6 +183,7 @@ public class ASCII : MonoBehaviour
 
 	private void RenderRegion(int x, int y, int width, int height)
 	{
+		//create new texture that is size of screen region
 		Texture2D regionTexture = new Texture2D((int)(charWidth * width), (int)(charHeight * height));
 		regionTexture.filterMode = FilterMode.Point;
 		regionTexture.wrapModeV = TextureWrapMode.Clamp;
@@ -194,12 +195,15 @@ public class ASCII : MonoBehaviour
 			}
 		}
 
+		// loop through region array and generate region texture
 		for (int row = 0; row < height; row++)
 		{
 			for (int column = 0; column < width; column++)
 			{
+				// figure out what char we are trying to draw
 				Vector2 charPosition = lookupCharPosition(overlay[y + row][x + column].c);
 
+				// loop through screen pixels and draw the appropriate pixel from the bitmap font texture
 				for (int charX = 0; charX < charWidth; charX++)
 				{
 					for (int charY = 0; charY < charHeight; charY++)
@@ -221,7 +225,10 @@ public class ASCII : MonoBehaviour
 			}
 		}
 
+		//update the region texture
 		regionTexture.Apply();
+
+		//copy the region to the overlay and set the overlay in the shader
 		Graphics.CopyTexture(regionTexture, 0, 0, 0, 0, regionTexture.width, regionTexture.height, overlayTexture, 0, 0, (x * charWidth), (overlayTexture.height - y * charHeight) - regionTexture.height);
 		mat.SetTexture("_Overlay", overlayTexture);
 	}
