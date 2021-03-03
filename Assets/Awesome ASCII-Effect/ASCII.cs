@@ -187,6 +187,13 @@ public class ASCII : MonoBehaviour
 		regionTexture.filterMode = FilterMode.Point;
 		regionTexture.wrapModeV = TextureWrapMode.Clamp;
 
+		// make texture completely transparent
+		for (int px=0; px < regionTexture.width; px++) {
+			for (int py=0; py < regionTexture.height; py++) {
+				regionTexture.SetPixel(px, py, new Color(0, 0, 0, 0));
+			}
+		}
+
 		for (int row = 0; row < height; row++)
 		{
 			for (int column = 0; column < width; column++)
