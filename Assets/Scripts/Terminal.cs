@@ -24,6 +24,7 @@ public class Terminal : MonoBehaviour, IInteractable
     public void OnInteractable()
     {
         //TODO: show UI prompt
+        EventSystem.Current.FireEvent(new ShowInteractionDialogueContext("Use (E)"));
     }
 
     public void Interact()
