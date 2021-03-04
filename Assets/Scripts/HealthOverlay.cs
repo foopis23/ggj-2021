@@ -221,7 +221,6 @@ public class HealthOverlay : MonoBehaviour
 	}
 
     void OnShowDialogue(ShowInteractionDialogueContext ctx) {
-        Debug.Log("SHOW DIALOGUE");
         if (isDialogueVisible) return;
 
         dialogueWidth = ctx.InteractionText.Length + 4;
