@@ -20,59 +20,25 @@ public class GroundPoundContext : EventContext
     }
 }
 
-public class ZombieAI : MonoBehaviour
+public class ZombieAI : EnemyAI
 {
-    //components
-    public NavMeshAgent navMeshAgent;
-    public Animator animator;
-
-    //navigation settings
-    public Transform target;
-    public float viewDistance; //view distance for spotting player
-    public float agroViewDistance; //view distance after agro'd
-    public float viewConeAngle; //view cone angle for spotting player
-    public float agroViewConeAngle; //view cone angle when player is spoitted
-    public int lookForLostPlayerMs; //the amount of time the bot should look for a lost player
-    public float timeBetweenSeePlayerChecks; //increaments to check on whether or not we can see the player
-    public float rotationDamping; //controls ai rotation speed
-
     //attack settings
     public float attackDistance; //distance the player can attack from
     public float groundPoundRadius; //the radius at which a ground pound attack lands a hit
     public float groundPoundDamage; //the amount of damage the ground pound attack will do
     public bool groundPoundLinearFalloff; //wether or not to drop the damage linearly based off the distance from the player
-    public bool invisible; //if the player is invisible this frame
-    public float attackChargeSpeed = 6.0f;
 
-    //damage settings
-    public MeshRenderer[] hurtMesh; //meshs to apply the hurt material to on damaged
-    public Material hurtMaterial; //material to apply on damaged
-    public Material normalMaterial; //material to restore normal colors
-
-    //health settings
-    public float maxHealth;
 
     //audio sources for each sound effect
     public AudioSource zombieAttackPrep1;
     public AudioSource zombieAttackPrep2;
     public AudioSource zombieAttackSmash;
 
-    //Navagiation Properties
-    private float lastSawPlayerTime;
-    private Vector3 lastSeenPlayerPos;
-    private float lastPlayerSeenCheck;
-
-    //health settings
-    private float health;
-
     //the speed the ai is suppose to move at (pulled from the navagent comp)
     private float normalSpeed;
 
     //state flags
-    private bool isAgro;
     private bool hasLastPlayerPos;
-    private bool didSeePlayer;
-    private bool canSeePlayer;
     private bool isAttacking;
     private bool isAttackCoolingDown;
 
@@ -156,20 +122,8 @@ public class ZombieAI : MonoBehaviour
     .##.....##.########..######...######..##.....##..######...########..######.
     */
 
-    void Start()
+    public override void Init()
     {
-        //get nav mesh agent
-        if (navMeshAgent == null)
-            navMeshAgent = GetComponent<NavMeshAgent>();
-
-        //get player target
-        if (target == null)
-            target = GameObject.FindGameObjectWithTag("Player").transform;
-
-        //get the animator
-        if (animator == null)
-            animator = GetComponent<Animator>();
-
         //intial properties
         lastSeenPlayerPos = new Vector3();
         normalSpeed = navMeshAgent.speed;
@@ -187,6 +141,27 @@ public class ZombieAI : MonoBehaviour
 
         //register event listener
         EventSystem.Current.RegisterEventListener<BulletHitCtx>(OnBulletHit);
+    }
+
+    public override void BehaviorTick()
+    {
+        //set animation states
+        animator.SetBool("isAttacking", isAttacking);
+        animator.SetBool("isAgro", isAgro);
+
+        if (isAgro)
+        {
+            AgroUpdate();
+        }
+        else
+        {
+            IdleUpdate();
+        }
+    }
+
+    public override void FixedBehaviorTick()
+    {
+
     }
 
     void AgroUpdate()
@@ -213,31 +188,6 @@ public class ZombieAI : MonoBehaviour
         Wander();
     }
 
-    void Update()
-    {
-        //set animation states
-        animator.SetBool("isAttacking", isAttacking);
-        animator.SetBool("isAgro", isAgro);
-
-        if (isAgro)
-        {
-            AgroUpdate();
-        }
-        else
-        {
-            IdleUpdate();
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (Time.time - lastPlayerSeenCheck > timeBetweenSeePlayerChecks)
-        {
-            didSeePlayer = canSeePlayer;
-            canSeePlayer = DoesAISeePlayer();
-        }
-    }
-
     /*
     .########.##.....##.########.##....##.########..######.
     .##.......##.....##.##.......###...##....##....##....##
@@ -256,10 +206,10 @@ public class ZombieAI : MonoBehaviour
     public void OnDamgeFinshed()
     {
         invisible = false;
-        foreach (MeshRenderer mesh in hurtMesh)
-        {
-            mesh.material = normalMaterial;
-        }
+        // foreach (MeshRenderer mesh in hurtMesh)
+        // {
+        //     mesh.material = normalMaterial;
+        // }
 
         if (health <= 0)
         {
@@ -310,32 +260,16 @@ public class ZombieAI : MonoBehaviour
     .##.....##.########.########.##........########.##.....##..######.
     */
 
-    private bool DoesAISeePlayer()
-    {
-        Vector3 direction = (target.position - transform.position).normalized;
-        RaycastHit hit;
-
-        float angle = (isAgro) ? agroViewConeAngle : viewConeAngle;
-        float distance = (isAgro) ? agroViewDistance : viewDistance;
-
-        lastPlayerSeenCheck = Time.time;
-
-        return Mathf.Abs(Vector3.Angle(transform.position, target.position)) <= (angle / 2) &&
-            Vector3.Distance(transform.position, target.position) <= distance &&
-            Physics.Raycast(transform.position, direction, out hit) &&
-            hit.collider.gameObject.tag == "Player" && !hit.collider.gameObject.GetComponent<Player>().Invisible;
-    }
-
     private void TakeDamage(float damage)
     {
         if (!invisible)
         {
             invisible = false;
             health -= damage;
-            foreach (MeshRenderer mesh in hurtMesh)
-            {
-                mesh.material = hurtMaterial;
-            }
+            // foreach (MeshRenderer mesh in hurtMesh)
+            // {
+            //     mesh.material = hurtMaterial;
+            // }
         }
 
         EventSystem.Current.CallbackAfter(OnDamgeFinshed, 400);

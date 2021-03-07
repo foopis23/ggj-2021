@@ -4,72 +4,30 @@ using UnityEngine;
 using UnityEngine.AI;
 using CallbackEvents;
 
-[System.Serializable]
-public class HurtMesh
+public class ShootAI : EnemyAI
 {
-    public MeshRenderer mesh;
-    public Material hurtMaterial;
-    public Material material;
-}
-
-public class ShootAI : MonoBehaviour
-{
-    //components
-    public NavMeshAgent navMeshAgent;
-    public Animator animator;
-
-    //navigation settings
-    public Transform target;
-    public float viewDistance; //view distance for spotting player
-    public float agroViewDistance; //view distance after agro'd
-    public float viewConeAngle; //view cone angle for spotting player
-    public float agroViewConeAngle; //view cone angle when player is spoitted
-    public int lookForLostPlayerMs; //the amount of time the bot should look for a lost player
-    public float timeBetweenSeePlayerChecks; //increaments to check on whether or not we can see the player
-    public float rotationDamping; //controls ai rotation speed
-
     //attack settings
     public float minStrafeDistance;
     public float maxStrafeDistance;
     public float maxProjectileDistance;
     public float projectileDamage;
     public float projectileSpeed;
-    public bool invisible; //if the player is invisible this frame
-    public float attackChargeSpeed = 6.0f;
+
     public GameObject projectilePrefab;
 
-    //damage settings
-    public HurtMesh[] hurtMesh;
-    // public MeshRenderer[] hurtMesh; //meshs to apply the hurt material to on damaged
-    public Material hurtMaterial; //material to apply on damaged
-    public Material normalMaterial; //material to restore normal colors
-
-    //health settings
-    public float maxHealth;
 
     //audio sources for each sound effect
     public AudioSource attackPrep1Sound;
     public AudioSource attackSound;
 
-    //Navagiation Properties
-    private float lastSawPlayerTime;
-    private Vector3 lastSeenPlayerPos;
-    private float lastPlayerSeenCheck;
-
-    //health settings
-    private float health;
-
     //the speed the ai is suppose to move at (pulled from the navagent comp)
     private float normalSpeed;
 
     //state flags
-    private bool isAgro;
     private bool isStrafing;
     private bool movingCloser;
     private bool movingAway;
     private bool hasLastPlayerPos;
-    private bool didSeePlayer;
-    private bool canSeePlayer;
     private bool isAttacking;
     private bool isAttackCoolingDown;
 
@@ -82,20 +40,6 @@ public class ShootAI : MonoBehaviour
     .##.....##..##......##..##...###....##....##.......##...###....##....##....##
     .##.....##.####....####.##....##....##....########.##....##....##.....######.
     */
-
-    // void AttackPlayer()
-    // {
-    //     lastSeenPlayerPos = target.position;
-    //     lastSawPlayerTime = Time.time;
-    //     hasLastPlayerPos = true;
-    //     navMeshAgent.SetDestination(target.position);
-
-    //     Vector3 lookPos = target.position - transform.position;
-    //     lookPos.y = 0;
-    //     Quaternion rotation = Quaternion.LookRotation(lookPos);
-    //     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
-    //     // transform.LookAt(target.position, Vector3.up);
-    // }
 
     void Strafe()
     {
@@ -273,20 +217,8 @@ public class ShootAI : MonoBehaviour
     .##.....##.########..######...######..##.....##..######...########..######.
     */
 
-    void Start()
+    public override void Init()
     {
-        //get nav mesh agent
-        if (navMeshAgent == null)
-            navMeshAgent = GetComponent<NavMeshAgent>();
-
-        //get player target
-        if (target == null)
-            target = GameObject.FindGameObjectWithTag("Player").transform;
-
-        //get the animator
-        if (animator == null)
-            animator = GetComponent<Animator>();
-
         //intial properties
         lastSeenPlayerPos = new Vector3();
         normalSpeed = navMeshAgent.speed;
@@ -339,7 +271,7 @@ public class ShootAI : MonoBehaviour
         Wander();
     }
 
-    void Update()
+    public override void BehaviorTick()
     {
         //set animation states
         animator.SetBool("isAttacking", isAttacking);
@@ -355,13 +287,9 @@ public class ShootAI : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    public override void FixedBehaviorTick()
     {
-        if (Time.time - lastPlayerSeenCheck > timeBetweenSeePlayerChecks)
-        {
-            didSeePlayer = canSeePlayer;
-            canSeePlayer = DoesAISeePlayer();
-        }
+
     }
 
     /*
@@ -436,22 +364,6 @@ public class ShootAI : MonoBehaviour
     .##.....##.##.......##.......##........##.......##....##..##....##
     .##.....##.########.########.##........########.##.....##..######.
     */
-
-    private bool DoesAISeePlayer()
-    {
-        Vector3 direction = (target.position - transform.position).normalized;
-        RaycastHit hit;
-
-        float angle = (isAgro) ? agroViewConeAngle : viewConeAngle;
-        float distance = (isAgro) ? agroViewDistance : viewDistance;
-
-        lastPlayerSeenCheck = Time.time;
-
-        return Mathf.Abs(Vector3.Angle(transform.position, target.position)) <= (angle / 2) &&
-            Vector3.Distance(transform.position, target.position) <= distance &&
-            Physics.Raycast(transform.position, direction, out hit) &&
-            hit.collider.gameObject.tag == "Player" && !hit.collider.gameObject.GetComponent<Player>().Invisible;
-    }
 
     private void TakeDamage(float damage)
     {
